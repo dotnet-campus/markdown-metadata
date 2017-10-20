@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace mdmeta
+namespace Mdmeta
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello, Markdown Front Matter!");
         }
     }
 }
