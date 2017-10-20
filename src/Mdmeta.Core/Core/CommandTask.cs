@@ -1,4 +1,4 @@
-﻿namespace Mdmeta
+﻿namespace Mdmeta.Core
 {
     public abstract class CommandTask
     {

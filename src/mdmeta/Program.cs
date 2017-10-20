@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using Mdmeta.Core;
 using Microsoft.Extensions.CommandLineUtils;
 
 namespace Mdmeta
@@ -18,7 +17,7 @@ namespace Mdmeta
                 app.ShowHelp();
                 return 0;
             });
-            new CommandTaskReflector().ReflectTo(app);
+            CommandTaskReflector.ReflectTo(typeof(CommandTask).Assembly, app);
             var exitCode = app.Execute(args);
             return exitCode;
         }

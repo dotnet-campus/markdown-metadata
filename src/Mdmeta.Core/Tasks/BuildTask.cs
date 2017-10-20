@@ -1,6 +1,7 @@
 ﻿using System;
+using Mdmeta.Core;
 
-namespace Mdmeta
+namespace Mdmeta.Tasks
 {
     [CommandMetadata("build",
         Description = "Add metadata to markdown files.")]
@@ -13,8 +14,6 @@ namespace Mdmeta
         [CommandOptionMetadata("--override",
             Description = "Indicate whether to override files that already has front matter or not.")]
         public bool Override { get; set; }
-
-        public string A { get; set; }
 
         public override int Run()
         {

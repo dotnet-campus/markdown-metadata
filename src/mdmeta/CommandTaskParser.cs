@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Mdmeta.Core;
 using Microsoft.Extensions.CommandLineUtils;
 
 namespace Mdmeta
 {
-    internal class CommandTaskReflector
+    internal static class CommandTaskReflector
     {
-        internal void ReflectTo(CommandLineApplication app)
+        internal static void ReflectTo(Assembly assembly, CommandLineApplication app)
         {
-            foreach (var ct in typeof(CommandTask).Assembly.GetTypes()
+            foreach (var ct in assembly.GetTypes()
                 .Where(x => typeof(CommandTask).IsAssignableFrom(x)))
             {
                 var commandAttribute = ct.GetCustomAttribute<CommandMetadataAttribute>();
@@ -25,7 +26,7 @@ namespace Mdmeta
             }
         }
 
-        private void ConfigCommand(CommandLineApplication command, string commandDescription, Type taskType)
+        private static void ConfigCommand(CommandLineApplication command, string commandDescription, Type taskType)
         {
             command.Description = commandDescription;
             command.HelpOption("-?|-h|--help");
