@@ -6,7 +6,7 @@ namespace Mdmeta
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, Markdown Front Matter!");
+            Console.WriteLine("Hello, Markdown Metadata!");
         }
     }
 }
