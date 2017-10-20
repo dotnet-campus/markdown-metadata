@@ -1,4 +1,4 @@
-ï»¿#if DEBUG
+#if DEBUG
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,8 +17,8 @@ namespace Mdmeta.Tasks
     ///   - Hello Markdown Metadata!
     /// - mdmeta echo "Hello!" -r 3
     ///   - Hello!Hello!Hello!
-    /// - mdmeta echo "Hello!" --repeat-count=3 -s " " -s "â€”â€”"
-    ///   - Hello! Hello!â€”â€”Hello!
+    /// - mdmeta echo "Hello!" --repeat-count=3 -s " " -s "¡ª¡ª"
+    ///   - Hello! Hello!¡ª¡ªHello!
     /// </summary>
     [CommandMetadata("echo",
         Description = "Output users command at specified format.")]
@@ -30,7 +30,7 @@ namespace Mdmeta.Tasks
         /// Gets or sets users words that will be output.
         /// It may be null if the user doesn't pass this option.
         /// </summary>
-        [CommandArgumentMetadata("[words]",
+        [CommandArgument("[words]",
             Description = "The words the user wants to output.")]
         public string Words { get; set; }
 
@@ -38,7 +38,7 @@ namespace Mdmeta.Tasks
         /// Gets or sets a value that indicate how many times to output the users words.
         /// It may be null if the user doesn't pass this option.
         /// </summary>
-        [CommandOptionMetadata("-r|--repeat-count",
+        [CommandOption("-r|--repeat-count",
             Description = "Indicates how many times to output the users words.")]
         public string RepeatCountRaw
         {
@@ -50,7 +50,7 @@ namespace Mdmeta.Tasks
         /// Gets or sets a value. It indicates that whether all words should be output in upper case.
         /// If the user passes the option, it will be false; otherwise it will be true.
         /// </summary>
-        [CommandOptionMetadata("--upper",
+        [CommandOption("--upper",
             Description = "Indicates that whether all words shoule be in upper case.")]
         public bool UpperCase { get; set; }
 
@@ -58,7 +58,7 @@ namespace Mdmeta.Tasks
         /// Gets or sets a list. All items in the list specify a seperator or each repeat.
         /// If a CommandOption is a List{string}, it will never be null.
         /// </summary>
-        [CommandOptionMetadata("-s|--seperator",
+        [CommandOption("-s|--seperator",
             Description = "Speficy a string to split each repeat.")]
         public List<string> Seperators { get; set; }
 
