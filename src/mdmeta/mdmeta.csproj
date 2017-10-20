@@ -4,6 +4,18 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RootNamespace>Mdmeta</RootNamespace>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Authors>walterlv</Authors>
+    <Company>walterlv</Company>
+    <Product>Markdown Metadata</Product>
+    <PackageId>walterlv.mdmeta</PackageId>
+    <Copyright>Copyright © walterlv 2017</Copyright>
+    <PackageProjectUrl>https://github.com/walterlv/markdown-metadata</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/walterlv/markdown-metadata.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseUrl>https://github.com/walterlv/markdown-metadata/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

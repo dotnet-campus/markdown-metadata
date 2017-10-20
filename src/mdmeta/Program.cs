@@ -1,4 +1,6 @@
-﻿using Mdmeta.Core;
+﻿using System;
+using System.Reflection;
+using Mdmeta.Core;
 using Microsoft.Extensions.CommandLineUtils;
 
 namespace Mdmeta
@@ -12,12 +14,13 @@ namespace Mdmeta
                 Name = "mdmeta"
             };
             app.HelpOption("-?|-h|--help");
+            app.VersionOption("--version", "0.1");
             app.OnExecute(() =>
             {
                 app.ShowHelp();
                 return 0;
             });
-            CommandTaskReflector.ReflectTo(typeof(CommandTask).Assembly, app);
+            app.ReflectFrom(typeof(CommandTask).Assembly);
             var exitCode = app.Execute(args);
             return exitCode;
         }

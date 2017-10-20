@@ -7,9 +7,9 @@ using Microsoft.Extensions.CommandLineUtils;
 
 namespace Mdmeta
 {
-    internal static class CommandTaskReflector
+    internal static class CommandLineReflector
     {
-        internal static void ReflectTo(Assembly assembly, CommandLineApplication app)
+        internal static void ReflectFrom(this CommandLineApplication app, Assembly assembly)
         {
             foreach (var ct in assembly.GetTypes()
                 .Where(x => typeof(CommandTask).IsAssignableFrom(x)))
