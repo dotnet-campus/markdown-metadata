@@ -17,8 +17,8 @@ namespace Mdmeta.Tasks
     ///   - Hello Markdown Metadata!
     /// - mdmeta echo "Hello!" -r 3
     ///   - Hello!Hello!Hello!
-    /// - mdmeta echo "Hello!" --repeat-count=3 -s " " -s "！！"
-    ///   - Hello! Hello!！！Hello!
+    /// - mdmeta echo "Hello!" --repeat-count=3 -s " " -s "|"
+    ///   - Hello! Hello!|Hello!
     /// </summary>
     [CommandMetadata("echo",
         Description = "Output users command at specified format.")]
