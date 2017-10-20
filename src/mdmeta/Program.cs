@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using Mdmeta.Core;
+﻿using Mdmeta.Core;
 using Microsoft.Extensions.CommandLineUtils;
 
 namespace Mdmeta
