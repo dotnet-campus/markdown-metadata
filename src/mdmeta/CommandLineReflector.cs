@@ -30,6 +30,7 @@ namespace Mdmeta
         {
             command.Description = commandDescription;
             command.HelpOption("-?|-h|--help");
+
             var argumentPropertyList = new List<(CommandArgument argument, PropertyInfo property)>();
             var optionPropertyList = new List<(CommandOption option, PropertyInfo property)>();
             foreach (var property in taskType.GetTypeInfo().DeclaredProperties)
@@ -43,25 +44,58 @@ namespace Mdmeta
                         argumentAttribute.Description);
                     argumentPropertyList.Add((argument, property));
                 }
-                if (optionAttribute != null && property.CanWrite)
+                else if (optionAttribute != null && property.CanWrite)
                 {
+                    CommandOptionType commandOptionType;
+                    if (typeof(IEnumerable<string>).IsAssignableFrom(property.PropertyType))
+                    {
+                        // If this property is a List<string>.
+                        commandOptionType = CommandOptionType.MultipleValue;
+                    }
+                    else if (typeof(string).IsAssignableFrom(property.PropertyType))
+                    {
+                        // If this property is a string.
+                        commandOptionType = CommandOptionType.SingleValue;
+                    }
+                    else if (typeof(bool).IsAssignableFrom(property.PropertyType))
+                    {
+                        // If this property is a bool.
+                        commandOptionType = CommandOptionType.NoValue;
+                    }
+                    else
+                    {
+                        continue;
+                    }
                     var option = command.Option(
                         optionAttribute.Template,
                         optionAttribute.Description,
-                        CommandOptionType.NoValue);
+                        commandOptionType);
                     optionPropertyList.Add((option, property));
                 }
             }
             command.OnExecute(() =>
             {
                 var commandTask = (CommandTask) Activator.CreateInstance(taskType);
-                foreach (var argumentProperty in argumentPropertyList)
+                foreach (var (argument, property) in argumentPropertyList)
                 {
-                    argumentProperty.property.SetValue(commandTask, argumentProperty.argument.Value);
+                    property.SetValue(commandTask, argument.Value);
                 }
-                foreach (var optionProperty in optionPropertyList.Where(o => o.option.HasValue()))
+                foreach (var (option, property) in optionPropertyList)
                 {
-                    optionProperty.property.SetValue(commandTask, true);
+                    switch (option.OptionType)
+                    {
+                        case CommandOptionType.MultipleValue:
+                            property.SetValue(commandTask, option.Values.ToList());
+                            break;
+                        case CommandOptionType.SingleValue:
+                            property.SetValue(commandTask, option.Value());
+                            break;
+                        case CommandOptionType.NoValue:
+                            property.SetValue(commandTask, option.HasValue());
+                            break;
+                        default:
+                            continue;
+                    }
                 }
                 return commandTask.Run();
             });
