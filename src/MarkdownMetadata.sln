@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mdmeta", "mdmeta\mdmeta.csproj", "{6C198D4B-B009-4481-BD38-7F0D7548E6A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mdmeta.Core", "Mdmeta.Core\Mdmeta.Core.csproj", "{AE2F2985-5524-48AD-8F3F-E5F17BCAF8EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mdmeta.Core", "Mdmeta.Core\Mdmeta.Core.csproj", "{AE2F2985-5524-48AD-8F3F-E5F17BCAF8EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_SolutionItems", "{4C38ADF5-A878-493C-A135-8478C21B86CA}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_Solution
 		..\LICENSE = ..\LICENSE
 		..\README.md = ..\README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mdmeta.Test", "Mdmeta.Test\Mdmeta.Test.csproj", "{76A6B59E-0A4E-433C-A7F8-68DD54923F7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{AE2F2985-5524-48AD-8F3F-E5F17BCAF8EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE2F2985-5524-48AD-8F3F-E5F17BCAF8EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE2F2985-5524-48AD-8F3F-E5F17BCAF8EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76A6B59E-0A4E-433C-A7F8-68DD54923F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76A6B59E-0A4E-433C-A7F8-68DD54923F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76A6B59E-0A4E-433C-A7F8-68DD54923F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76A6B59E-0A4E-433C-A7F8-68DD54923F7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
