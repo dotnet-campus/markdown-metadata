@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Mime;
@@ -59,12 +60,14 @@ namespace Mdmeta.Test
                 "<!--more-->"
             }, "<!--more1-->");
 
-            mdmetaFile.Excerpt = excerpt;
+            mdmetaFile.MdmetaXsawJnfzmrs.Add(new SeparatorMdmetaXsawJnfzmr(excerpt));
 
             var str = mdmetaFile.Read();
 
             Assert.AreEqual(str.IndexOf("<!--more-->"), -1);
             Assert.AreEqual(str.IndexOf("<!--more1-->") >= 0, true);
+
+            Console.WriteLine(str);
         }
     }
 }

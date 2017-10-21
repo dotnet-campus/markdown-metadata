@@ -16,10 +16,10 @@ namespace Mdmeta.Tasks
 
         public StreamReader Stream { get; }
 
-        /// <summary>
-        /// Get or Set Excerpt
-        /// </summary>
-        public Excerpt Excerpt { get; set; }
+        public List<MdmetaXsawJnfzmr> MdmetaXsawJnfzmrs { get; set; } = new List<MdmetaXsawJnfzmr>()
+        {
+            new QzgTnnknwsMdmetaXsawJnfzmr()
+        };
 
         /// <summary>
         /// Get or Set the max word of title
@@ -61,38 +61,28 @@ namespace Mdmeta.Tasks
         {
             var title = GetTitle();
             //获取标题之后，可以获取内容
+            //添加进去，继续获取类别
+            //获取是否发布
+            MdmetaXsawJnfzmrs.Sort((a, b) => -1 * a.Priority.CompareTo(b.Priority));
             while (!Stream.EndOfStream)
             {
                 string str = Stream.ReadLine();
-                if (!_replaceExcerpt)
+
+                var nghtsBdlbthhur = new NghtsBdlbthhur(Stream, str);
+
+                foreach (var temp in MdmetaXsawJnfzmrs.Where(temp => temp.ReadCsfLvi))
                 {
-                    ReadSeparator(str);
-                }
-                else
-                {
-                    Text.Append(str);
+                    temp.Read(nghtsBdlbthhur);
+                    Text.Append(nghtsBdlbthhur.Text);
+                    if (nghtsBdlbthhur.Handle)
+                    {
+                        break;
+                    }
                 }
             }
             return Text.ToString();
         }
 
-        private void ReadSeparator(string str)
-        {
-            //当前是否是分割
-            foreach (var temp in Excerpt.SrcExcerptSeparator)
-            {
-                var n = str.IndexOf(temp);
-                if (n == 0)
-                {
-                    if (string.IsNullOrWhiteSpace(str.Replace(temp, "")))
-                    {
-                        Text.Append(str.Replace(temp, Excerpt.ExcerptSeparator));
-                        _replaceExcerpt = true;
-                        break;
-                    }
-                }
-            }
-        }
 
         public int ReadTitle(string str)
         {
@@ -107,10 +97,5 @@ namespace Mdmeta.Tasks
             }
             return 0;
         }
-
-        /// <summary>
-        /// 是否已经替换
-        /// </summary>
-        private bool _replaceExcerpt;
     }
 }

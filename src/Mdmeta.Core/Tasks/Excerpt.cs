@@ -9,6 +9,13 @@ namespace Mdmeta.Tasks
     {
         public Excerpt(IReadOnlyList<string> srcExcerptSeparator, string excerptSeparator)
         {
+            if (srcExcerptSeparator == null)
+            {
+                srcExcerptSeparator = new List<string>()
+                {
+                    "<!--more-->","---"
+                };
+            }
             SrcExcerptSeparator = srcExcerptSeparator;
             ExcerptSeparator = excerptSeparator;
         }
