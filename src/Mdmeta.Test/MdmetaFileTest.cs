@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Mime;
 using System.Reflection;
@@ -13,7 +14,7 @@ namespace Mdmeta.Test
         public void GetTitle_File_CanGetTitle()
         {
             var fileInfo = new FileInfo(Path.Combine(new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName, "如何使用本模板搭建博客.md"));
-          
+
             var mdmetaFile = new MdmetaFile(fileInfo.OpenText());
             var str = mdmetaFile.GetTitle();
             Assert.AreEqual(str, "如何使用本模板搭建博客");
@@ -44,6 +45,26 @@ namespace Mdmeta.Test
             var mdmetaFile = new MdmetaFile(null);
             var n = mdmetaFile.ReadTitle(str);
             Assert.AreEqual(n, 5);
+        }
+
+        [TestMethod]
+        public void Read_Replace_String()
+        {
+            var fileInfo = new FileInfo(Path.Combine(new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName, "如何使用本模板搭建博客.md"));
+
+            var mdmetaFile = new MdmetaFile(fileInfo.OpenText());
+
+            var excerpt = new Excerpt(new List<string>()
+            {
+                "<!--more-->"
+            }, "<!--more1-->");
+
+            mdmetaFile.Excerpt = excerpt;
+
+            var str = mdmetaFile.Read();
+
+            Assert.AreEqual(str.IndexOf("<!--more-->"), -1);
+            Assert.AreEqual(str.IndexOf("<!--more1-->") >= 0, true);
         }
     }
 }
