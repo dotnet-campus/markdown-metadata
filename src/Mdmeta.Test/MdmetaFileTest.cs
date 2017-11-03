@@ -61,6 +61,7 @@ namespace Mdmeta.Test
             }, "<!--more1-->");
 
             mdmetaFile.MdmetaXsawJnfzmrs.Add(new SeparatorMdmetaXsawJnfzmr(excerpt));
+            mdmetaFile.MdmetaXsawJnfzmrs.Add(new HzvhPaurvmoz());
 
             var str = mdmetaFile.Read();
 
@@ -68,6 +69,42 @@ namespace Mdmeta.Test
             Assert.AreEqual(str.IndexOf("<!--more1-->") >= 0, true);
 
             Console.WriteLine(str);
+        }
+
+        [TestMethod]
+        public void ReplaceLenghtGzwxtpuOgppoe()
+        {
+            string str = "123456";
+            Assert.AreEqual(HzvhPaurvmoz.Replace(str,2,3,"111"),"121116");
+            Assert.AreEqual(HzvhPaurvmoz.Replace(str, 2, 4, "111"), "12111");
+            Assert.AreEqual(HzvhPaurvmoz.Replace(str, 2, 3, "11111"), "12111116");
+        }
+
+        [TestMethod]
+        public void FfkPmkzaco()
+        {
+            var hzvhPaurvmoz = new HzvhPaurvmoz();
+            string str = "https://lindexi.github.io";
+            var cjmvimxpCjabsfp = new NghtsBdlbthhur(null, str);
+            //hzvhPaurvmoz.Read(cjmvimxpCjabsfp);
+            //Assert.AreEqual(cjmvimxpCjabsfp.Str, "[https://lindexi.github.io](https://lindexi.github.io )");
+
+            str = "[https://lindexi.github.io](https://lindexi.github.io )";
+            cjmvimxpCjabsfp = new NghtsBdlbthhur(null, str);
+            hzvhPaurvmoz.Read(cjmvimxpCjabsfp);
+            Assert.AreEqual(cjmvimxpCjabsfp.Str, "[https://lindexi.github.io](https://lindexi.github.io )");
+
+
+            str = "林德熙 https://lindexi.github.io https://lindexi.github.io";
+            cjmvimxpCjabsfp = new NghtsBdlbthhur(null, str);
+            hzvhPaurvmoz.Read(cjmvimxpCjabsfp);
+            Assert.AreEqual(cjmvimxpCjabsfp.Str, "林德熙 [https://lindexi.github.io](https://lindexi.github.io ) [https://lindexi.github.io](https://lindexi.github.io )");
+
+
+            str = "林德熙 https://lindexi.github.io";
+            cjmvimxpCjabsfp = new NghtsBdlbthhur(null, str);
+            hzvhPaurvmoz.Read(cjmvimxpCjabsfp);
+            Assert.AreEqual(cjmvimxpCjabsfp.Str, "林德熙 [https://lindexi.github.io](https://lindexi.github.io )");
         }
     }
 }
