@@ -37,7 +37,7 @@ namespace Mdmeta.Tasks
                 {
                     mjtxyLxnavpxoj = mjtxyLxnavpxoj + n;
                     nqPnwjadvxs = Replace(nqPnwjadvxs, mjtxyLxnavpxoj, wjaljxoSjxhta.n, wjaljxoSjxhta.str);
-                    mjtxyLxnavpxoj = mjtxyLxnavpxoj  + wjaljxoSjxhta.str.Length;
+                    mjtxyLxnavpxoj = mjtxyLxnavpxoj + wjaljxoSjxhta.str.Length;
                 }
                 else
                 {
@@ -47,30 +47,6 @@ namespace Mdmeta.Tasks
             }
 
             nghtsBdlbthhur.Str = nqPnwjadvxs;
-        }
-
-        /// <summary>
-        /// 字符串替换
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="start"></param>
-        /// <param name="length"></param>
-        /// <param name="t"></param>
-        public static string Replace(string str, int start, int length, string t)
-        {
-            var babmezdmJfno = "";
-            if (start > 0)
-            {
-                babmezdmJfno = str.Substring(0, start);
-            }
-
-            var zszqpmbwPmwc = "";
-            if (start + length < str.Length)
-            {
-                zszqpmbwPmwc = str.Substring(start + length);
-            }
-
-            return babmezdmJfno + t + zszqpmbwPmwc;
         }
 
         private (int n, bool pldbzAqyw, string str) TpldbzAqyw(string sGuhnSym, int n)
@@ -108,6 +84,30 @@ namespace Mdmeta.Tasks
         }
 
         /// <summary>
+        /// 字符串替换
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="start"></param>
+        /// <param name="length"></param>
+        /// <param name="t"></param>
+        public static string Replace(string str, int start, int length, string t)
+        {
+            var babmezdmJfno = "";
+            if (start > 0)
+            {
+                babmezdmJfno = str.Substring(0, start);
+            }
+
+            var zszqpmbwPmwc = "";
+            if (start + length < str.Length)
+            {
+                zszqpmbwPmwc = str.Substring(start + length);
+            }
+
+            return babmezdmJfno + t + zszqpmbwPmwc;
+        }
+
+        /// <summary>
         /// 判断之前是不是已经链接
         /// </summary>
         /// <param name="str"></param>
@@ -139,6 +139,5 @@ namespace Mdmeta.Tasks
             }
             return false;
         }
-
     }
 }
