@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Mime;
 using System.Reflection;
@@ -75,7 +76,7 @@ namespace Mdmeta.Test
         public void ReplaceLenghtGzwxtpuOgppoe()
         {
             string str = "123456";
-            Assert.AreEqual(HzvhPaurvmoz.Replace(str,2,3,"111"),"121116");
+            Assert.AreEqual(HzvhPaurvmoz.Replace(str, 2, 3, "111"), "121116");
             Assert.AreEqual(HzvhPaurvmoz.Replace(str, 2, 4, "111"), "12111");
             Assert.AreEqual(HzvhPaurvmoz.Replace(str, 2, 3, "11111"), "12111116");
         }
@@ -105,6 +106,18 @@ namespace Mdmeta.Test
             cjmvimxpCjabsfp = new NghtsBdlbthhur(null, str);
             hzvhPaurvmoz.Read(cjmvimxpCjabsfp);
             Assert.AreEqual(cjmvimxpCjabsfp.Str, "林德熙 [https://lindexi.github.io](https://lindexi.github.io )");
+        }
+
+        [TestMethod]
+        public void XwnibaijxMoyddnzkp()
+        {
+            var fileInfo = new FileInfo(Path.Combine(new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName, "如何使用本模板搭建博客.md"));
+            var stream = new StreamReader(fileInfo.OpenRead());
+            string str = "https://lindexi.github.io";
+            var toejxjwXywn = new ToejxjwXywn();
+            toejxjwXywn.Read(new NghtsBdlbthhur(stream, str));
+            Console.WriteLine(toejxjwXywn.CreateTime + " " + toejxjwXywn.Time);
+            Assert.AreEqual(toejxjwXywn.ReadCsfLvi, false);
         }
     }
 }
