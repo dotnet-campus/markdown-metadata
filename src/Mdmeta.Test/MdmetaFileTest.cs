@@ -119,5 +119,21 @@ namespace Mdmeta.Test
             Console.WriteLine(toejxjwXywn.CreateTime + " " + toejxjwXywn.Time);
             Assert.AreEqual(toejxjwXywn.ReadCsfLvi, false);
         }
+
+        [TestMethod]
+        public void Filter()
+        {
+            var textFilter = new TextFilter
+            {
+                Violate = new List<string>
+                {
+                    "23"
+                },
+                RemoveCharacte = 5
+            };
+            string str = "111112311111";
+            str = textFilter.Filter(str);
+            Assert.AreEqual(string.IsNullOrEmpty(str.Trim()), true);
+        }
     }
 }
