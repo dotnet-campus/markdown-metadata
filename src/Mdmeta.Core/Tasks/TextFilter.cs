@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -41,6 +42,23 @@ namespace Mdmeta.Tasks
                 }
             }
             return ret.ToString();
+        }
+
+        private string RhqiiwVwb(string str)
+        {
+            //检查是否需要修改
+            var wiolate = str;
+            foreach (var temp in Wiolate)
+            {
+                wiolate = wiolate.Replace(temp, "");
+            }
+
+            if(Violate.Any(temp=>wiolate.Contains(temp)))
+            {
+                return RhbjZuiez(str);
+            }
+
+            return str;
         }
 
         private string RhbjZuiez(string str)
