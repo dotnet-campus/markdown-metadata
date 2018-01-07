@@ -17,6 +17,11 @@ namespace Mdmeta.Tasks
         public List<string> Violate { get; set; }
 
         /// <summary>
+        /// 白名单
+        /// </summary>
+        public List<string> Wiolate { get; set; }
+
+        /// <summary>
         /// 删除前后词语
         /// </summary>
         public int RemoveCharacte { set; get; }
