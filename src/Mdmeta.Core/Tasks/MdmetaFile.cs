@@ -7,6 +7,7 @@ using System.Text;
 namespace Mdmeta.Tasks
 {
 
+
     public class MdmetaFile
     {
         public MdmetaFile(StreamReader stream)
