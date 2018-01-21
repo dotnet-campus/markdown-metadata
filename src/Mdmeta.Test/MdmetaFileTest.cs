@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Reflection;
+using System.Text;
 using Mdmeta.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,42 +14,42 @@ namespace Mdmeta.Test
     [TestClass]
     public class MdmetaFileTest
     {
-        [TestMethod]
-        public void GetTitle_File_CanGetTitle()
-        {
-            var fileInfo = new FileInfo(Path.Combine(new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName, "如何使用本模板搭建博客.md"));
+        //[TestMethod]
+        //public void GetTitle_File_CanGetTitle()
+        //{
+        //    var fileInfo = new FileInfo(Path.Combine(new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName, "如何使用本模板搭建博客.md"));
 
-            var mdmetaFile = new MdmetaFile(fileInfo.OpenText());
-            var str = mdmetaFile.GetTitle();
-            Assert.AreEqual(str, "如何使用本模板搭建博客");
-        }
+        //    var mdmetaFile = new MdmetaFile(fileInfo.OpenText());
+        //    var str = mdmetaFile.GetTitle();
+        //    Assert.AreEqual(str, "如何使用本模板搭建博客");
+        //}
 
-        [TestMethod]
-        public void ReadTitle_String_int()
-        {
-            string str = "# 123";
-            var mdmetaFile = new MdmetaFile(null);
-            var n = mdmetaFile.ReadTitle(str);
-            Assert.AreEqual(n, 2);
-        }
+        //[TestMethod]
+        //public void ReadTitle_String_int()
+        //{
+        //    string str = "# 123";
+        //    var mdmetaFile = new MdmetaFile(null);
+        //    var n = mdmetaFile.ReadTitle(str);
+        //    Assert.AreEqual(n, 2);
+        //}
 
-        [TestMethod]
-        public void ReadTitle_EmptyString_Int()
-        {
-            string str = " # 123";
-            var mdmetaFile = new MdmetaFile(null);
-            var n = mdmetaFile.ReadTitle(str);
-            Assert.AreEqual(n, 3);
-        }
+        //[TestMethod]
+        //public void ReadTitle_EmptyString_Int()
+        //{
+        //    string str = " # 123";
+        //    var mdmetaFile = new MdmetaFile(null);
+        //    var n = mdmetaFile.ReadTitle(str);
+        //    Assert.AreEqual(n, 3);
+        //}
 
-        [TestMethod]
-        public void ReadTitle_TwoTe_Int()
-        {
-            string str = " ### 123";
-            var mdmetaFile = new MdmetaFile(null);
-            var n = mdmetaFile.ReadTitle(str);
-            Assert.AreEqual(n, 5);
-        }
+        //[TestMethod]
+        //public void ReadTitle_TwoTe_Int()
+        //{
+        //    string str = " ### 123";
+        //    var mdmetaFile = new MdmetaFile(null);
+        //    var n = mdmetaFile.ReadTitle(str);
+        //    Assert.AreEqual(n, 5);
+        //}
 
         [TestMethod]
         public void Read_Replace_String()
@@ -65,13 +66,35 @@ namespace Mdmeta.Test
             mdmetaFile.MdmetaXsawJnfzmrs.Add(new SeparatorMdmetaXsawJnfzmr(excerpt));
             mdmetaFile.MdmetaXsawJnfzmrs.Add(new HzvhPaurvmoz());
 
-            var str = mdmetaFile.Read();
+            var str = mdmetaFile.Read().Text;
 
             Assert.AreEqual(str.IndexOf("<!--more-->"), -1);
             Assert.AreEqual(str.IndexOf("<!--more1-->") >= 0, true);
 
             Console.WriteLine(str);
         }
+
+        [TestMethod]
+        public void NvwLqlgh()
+        {
+            var excerpt =
+                "本文告诉大家如何使用这个博客主题搭建自己的博客。这个主题是由 [吕毅 - walterlv](https://walterlv.github.io/ )大神基于[hcz-jekyll-blog](https://codeasashu.github.io/hcz-jekyll-blog/) 修改出来的，可以用于手机端和pc端。";
+            var fileInfo = new FileInfo(Path.Combine(new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName, "如何使用本模板搭建博客.md"));
+            var separatorMdmetaXsawJnfzmr = new SeparatorMdmetaXsawJnfzmr(Excerpt.JyggcudKgylq);
+
+
+            var mdmetaFile = new MdmetaFile(fileInfo.OpenText());
+
+            mdmetaFile.MdmetaXsawJnfzmrs = new List<MdmetaXsawJnfzmr>()
+            {
+                separatorMdmetaXsawJnfzmr,
+                new QzgTnnknwsMdmetaXsawJnfzmr()
+            };
+
+            var hvjEthpiaca = mdmetaFile.Read();
+            Assert.AreEqual(hvjEthpiaca.Excerpt.Trim(), excerpt);
+        }
+
 
         [TestMethod]
         public void ReplaceLenghtGzwxtpuOgppoe()
@@ -116,35 +139,31 @@ namespace Mdmeta.Test
             var stream = new StreamReader(fileInfo.OpenRead());
             string str = "https://lindexi.github.io";
             var toejxjwXywn = new ToejxjwXywn();
+            var hvjEthpiaca = new HvjEthpiaca();
+            toejxjwXywn.HvjEthpiaca = hvjEthpiaca;
             toejxjwXywn.Read(new NghtsBdlbthhur(stream, str));
-            Console.WriteLine(toejxjwXywn.CreateTime + " " + toejxjwXywn.Time);
+            Console.WriteLine(toejxjwXywn.HvjEthpiaca.CreateTime + " " + toejxjwXywn.HvjEthpiaca.Time);
             Assert.AreEqual(toejxjwXywn.ReadCsfLvi, false);
         }
 
-        [TestMethod]
-        public void Filter()
+        [TestMethod()]
+        public void UhmmlTzj()
         {
-            var textFilter = new TextFilter
-            {
-                Violate = new List<string>
-                {
-                    "高智晟","谭作人","高智晟","丁子霖","唯色","焦国标","何清涟","耀邦","紫阳","方励之","直男","严家其","鲍彤","鮑彤","鲍朴","柴玲",
-                },
-                RemoveCharacte = 5
-            };
-            string str = "";
+            var oglGwbhuasyo = new OglGwbhuasyo("lindexi", "E:\\temp\\lindexi", "E:\\temp\\uwp_introduction");
+            var uhmmlTzj = new UhmmlTzj(oglGwbhuasyo);
 
-            var file = new FileInfo("E:\\download\\民调局异闻录.txt");
-            using (var stream = file.OpenText())
-            {
-                str = stream.ReadToEnd();
-            }
-            str = textFilter.Filter(str);
+            uhmmlTzj.Read();
+        }
 
-            using (var stream=new StreamWriter(file.OpenWrite()))
-            {
-                stream.Write(str);
-            }
+        [TestMethod]
+        public void LoquXiz()
+        {
+            string str =
+                "<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\"><img alt=\"知识共享许可协议\" style=\"border-width:0\" src=\"https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png\" /></a><br />本作品采用<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。欢迎转载、使用、重新发布，但务必保留文章署名[林德熙](http://blog.csdn.net/lindexi_gd)(包含链接:http://blog.csdn.net/lindexi_gd )，不得用于商业目的，基于本文修改后的作品务必以相同的许可发布。如有任何疑问，请与我[联系](mailto:lindexi_gd@163.com)。";
+            var hzvhPaurvmoz = new HzvhPaurvmoz();
+            var cjmvimxpCja = new NghtsBdlbthhur(null, str);
+            hzvhPaurvmoz.Read(cjmvimxpCja);
+            str = cjmvimxpCja.Text;
         }
     }
 }
