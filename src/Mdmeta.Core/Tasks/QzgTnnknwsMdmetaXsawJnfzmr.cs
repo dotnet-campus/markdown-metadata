@@ -1,6 +1,6 @@
 ﻿namespace Mdmeta.Tasks
 {
-    internal class QzgTnnknwsMdmetaXsawJnfzmr : MdmetaXsawJnfzmr
+    public class QzgTnnknwsMdmetaXsawJnfzmr : MdmetaXsawJnfzmr
     {
         /// <summary>
         /// 用于一般转换，读到什么就转什么

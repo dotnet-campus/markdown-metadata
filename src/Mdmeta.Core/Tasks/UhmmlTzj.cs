@@ -42,6 +42,7 @@ namespace Mdmeta.Tasks
                 var hzvhPaurvmoz = new HzvhPaurvmoz();
                 var separatorMdmetaXsawJnfzmr = new SeparatorMdmetaXsawJnfzmr(new Excerpt(null, "<!--more-->"));
                 var toejxjwXywn = new ToejxjwXywn();
+                var licenseQahvmudf = new LicenseQahvmudf();
 
                 mdmetaFile.MdmetaXsawJnfzmrs = new List<MdmetaXsawJnfzmr>()
                 {
@@ -49,6 +50,7 @@ namespace Mdmeta.Tasks
                     separatorMdmetaXsawJnfzmr,
                     toejxjwXywn,
                     hzvhPaurvmoz,
+                    licenseQahvmudf,
 
                 }; //插入
                 mdmetaFile.Read();

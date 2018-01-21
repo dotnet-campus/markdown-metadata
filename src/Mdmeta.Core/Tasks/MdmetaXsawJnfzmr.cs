@@ -22,5 +22,7 @@
         /// </summary>
         /// <returns></returns>
         public abstract void Read(NghtsBdlbthhur nghtsBdlbthhur);
+
+        public HvjEthpiaca HvjEthpiaca { get; set; }
     }
 }

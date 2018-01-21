@@ -8,12 +8,10 @@ namespace Mdmeta.Tasks
     /// </summary>
     public class ToejxjwXywn : MdmetaXsawJnfzmr
     {
-        public string CreateTime { get; set; }
-
-        /// <summary>
-        /// 修改时间
-        /// </summary>
-        public string Time { get; set; }
+        public ToejxjwXywn()
+        {
+            Priority = 20;
+        }
 
         public override void Read(NghtsBdlbthhur nghtsBdlbthhur)
         {
@@ -21,8 +19,8 @@ namespace Mdmeta.Tasks
             if (stream != null)
             {
                 var file = new FileInfo(stream.Name);
-                CreateTime = ToString(file.CreationTime);
-                Time = ToString(file.LastWriteTime);
+                HvjEthpiaca.CreateTime = ToString(file.CreationTime);
+                HvjEthpiaca.Time = ToString(file.LastWriteTime);
             }
             ReadCsfLvi = false;
         }

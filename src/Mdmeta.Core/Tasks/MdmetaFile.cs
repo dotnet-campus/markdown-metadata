@@ -29,11 +29,46 @@ namespace Mdmeta.Tasks
 
         public StringBuilder Text { get; } = new StringBuilder();
 
+        public HvjEthpiaca Read()
+        {
+            //获取标题之后，可以获取内容
+            //添加进去，继续获取类别
+            //获取是否发布
+            MdmetaXsawJnfzmrs.Sort((a, b) => -1 * a.Priority.CompareTo(b.Priority));
+
+            var hvjEthpiaca = new HvjEthpiaca();
+            hvjEthpiaca.Title = GetTitle();
+            foreach (var temp in MdmetaXsawJnfzmrs)
+            {
+                temp.HvjEthpiaca = hvjEthpiaca;
+            }
+
+            while (!Stream.EndOfStream)
+            {
+                string str = Stream.ReadLine();
+
+                var nghtsBdlbthhur = new NghtsBdlbthhur(Stream, str);
+
+                foreach (var temp in MdmetaXsawJnfzmrs.Where(temp => temp.ReadCsfLvi))
+                {
+                    temp.Read(nghtsBdlbthhur);
+                    Text.Append(nghtsBdlbthhur.Text);
+                    if (nghtsBdlbthhur.Handle)
+                    {
+                        break;
+                    }
+                }
+            }
+            hvjEthpiaca.Text = Text.ToString();
+
+            return hvjEthpiaca;
+        }
+
         /// <summary>
         /// Get <see cref="Stream"/> title
         /// </summary>
         /// <returns></returns>
-        public string GetTitle()
+        private string GetTitle()
         {
             //获取第一行或第一个有 # 的一行
             var str = "";
@@ -58,34 +93,10 @@ namespace Mdmeta.Tasks
             return null;
         }
 
-        public string Read()
-        {
-            var title = GetTitle();
-            //获取标题之后，可以获取内容
-            //添加进去，继续获取类别
-            //获取是否发布
-            MdmetaXsawJnfzmrs.Sort((a, b) => -1 * a.Priority.CompareTo(b.Priority));
-            while (!Stream.EndOfStream)
-            {
-                string str = Stream.ReadLine();
-
-                var nghtsBdlbthhur = new NghtsBdlbthhur(Stream, str);
-
-                foreach (var temp in MdmetaXsawJnfzmrs.Where(temp => temp.ReadCsfLvi))
-                {
-                    temp.Read(nghtsBdlbthhur);
-                    Text.Append(nghtsBdlbthhur.Text);
-                    if (nghtsBdlbthhur.Handle)
-                    {
-                        break;
-                    }
-                }
-            }
-            return Text.ToString();
-        }
 
 
-        public int ReadTitle(string str)
+
+        private int ReadTitle(string str)
         {
             const char empty = ' ';
             for (int i = 0; i < str.Length; i++)

@@ -1,4 +1,6 @@
-﻿namespace Mdmeta.Tasks
+﻿using System.Text;
+
+namespace Mdmeta.Tasks
 {
     public class SeparatorMdmetaXsawJnfzmr : MdmetaXsawJnfzmr
     {
@@ -24,27 +26,28 @@
                 {
                     if (string.IsNullOrWhiteSpace(str.Replace(temp, "")))
                     {
-                        nghtsBdlbthhur.Text = str.Replace(temp, Excerpt.ExcerptSeparator) + Line;
-                        _replaceExcerpt = true;
+                        HvjEthpiaca.Excerpt = Text.ToString();
+
                         nghtsBdlbthhur.Handle = true;
+                        ReadCsfLvi = false;
                         return;
                     }
                 }
             }
+
+            if(!string.IsNullOrEmpty(nghtsBdlbthhur.Str))
+            {
+                Text.Append(nghtsBdlbthhur.Str + Line);
+            }
+
+            nghtsBdlbthhur.Handle = true;
         }
+
+        private StringBuilder Text { set; get; } = new StringBuilder();
 
         /// <summary>
         /// Get or Set Excerpt
         /// </summary>
         public Excerpt Excerpt { get; set; }
-
-        /// <summary>
-        /// 是否已经替换
-        /// </summary>
-        private bool _replaceExcerpt
-        {
-            set => ReadCsfLvi = !value;
-            get => ReadCsfLvi;
-        }
     }
 }

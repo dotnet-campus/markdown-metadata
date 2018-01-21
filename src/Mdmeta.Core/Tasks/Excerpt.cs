@@ -7,6 +7,8 @@ namespace Mdmeta.Tasks
     /// </summary>
     public class Excerpt
     {
+        public static Excerpt JyggcudKgylq { get; } = new Excerpt(null, "<!--more-->");
+
         public Excerpt(IReadOnlyList<string> srcExcerptSeparator, string excerptSeparator)
         {
             if (srcExcerptSeparator == null)
