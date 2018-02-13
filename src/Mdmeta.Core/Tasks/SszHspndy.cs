@@ -13,7 +13,7 @@
         {
             foreach (var dneStjqxmka in SkfDqxqordlu.DeopvvkHjiz)
             {
-                hfzedpSfkgf = hfzedpSfkgf.Replace(dneStjqxmka.dkfTgnfav, dneStjqxmka.hvurSjsdt);
+                hfzedpSfkgf = hfzedpSfkgf.Replace($"{{{{ {dneStjqxmka.dkfTgnfav} }}}}", dneStjqxmka.hvurSjsdt);
             }
 
             return hfzedpSfkgf;
