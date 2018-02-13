@@ -147,6 +147,7 @@ namespace Mdmeta.Tasks
                 var separatorMdmetaXsawJnfzmr = new SeparatorMdmetaXsawJnfzmr(new Excerpt(null, "<!--more-->"));
                 var toejxjwXywn = new ToejxjwXywn();
                 var licenseQahvmudf = new LicenseQahvmudf();
+                var dwwHdwtgcqjh = new DwwHdwtgcqjh();
 
                 mdmetaFile.MdmetaXsawJnfzmrs = new List<MdmetaXsawJnfzmr>()
                 {
@@ -155,7 +156,7 @@ namespace Mdmeta.Tasks
                     toejxjwXywn,
                     hzvhPaurvmoz,
                     licenseQahvmudf,
-
+                    dwwHdwtgcqjh,
                 };
                 return mdmetaFile.Read();
             }
