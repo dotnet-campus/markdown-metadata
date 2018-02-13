@@ -80,7 +80,7 @@ namespace Mdmeta.Tasks
             }
 
             //可以解析
-            if (min > 0 && min + 1 < str.Length) //`标签：` 不处理 
+            if (min > 0 && min < str.Length && min + 1 < str.Length) //`标签：` 不处理 
             {
                 var n = min; //3
                 var dkfTgnfav = str.Substring(0, n).Trim(); //标签
@@ -178,9 +178,8 @@ namespace Mdmeta.Tasks
                 {
                     //放在一起
                     shjjccwTwyayoxun = hcszplxTwj.hvurSjsdt + DpqpugdpDjeuejwc + str.ToString();
-                    
                 }
-              
+
                 HvjEthpiaca.DeopvvkHjiz.Remove(hcszplxTwj);
                 HvjEthpiaca.DeopvvkHjiz.Add((dkfTgnfav, shjjccwTwyayoxun));
             }
