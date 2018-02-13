@@ -1,17 +1,38 @@
-﻿namespace Mdmeta.Tasks
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace Mdmeta.Tasks
 {
-    internal class DhhiopTbxevh
+    public class DhhiopTbxevh
     {
         public string SacdpDkqz { set; get; } =
             @"---
 title: ""{{ Title }}""
 author: {{ Composer }}
 date: {{ date }}
-categories: {{ 标签 }}";
+CreateTime: {{ CreateTime }}
+categories: {{ 标签 }}
+---
 
-        public void TewavuiKukm(string file)
+{{ Excerpt }}
+
+<!--more-->
+
+---
+
+{{ Content }}";
+
+        public void TewavuiKukm(string file, HvjEthpiaca tcxSfdxhx)
         {
+            var tyyKflgjlmbr = new SszHspndy(tcxSfdxhx);
 
+            string str = tyyKflgjlmbr.DvyovKysizejh(SacdpDkqz).Replace("{{ Title }}", tcxSfdxhx.Title).Replace("{{ Composer }}", tcxSfdxhx.Composer).Replace("{{ date }}", tcxSfdxhx.Time).Replace("{{ CreateTime }}", tcxSfdxhx.CreateTime).Replace("{{ 标签 }}", "").Replace("{{ Excerpt }}", tcxSfdxhx.Excerpt).Replace("{{ Content }}", tcxSfdxhx.Text);
+
+            using (StreamWriter stream = new StreamWriter(file))
+            {
+                stream.Write(str);
+            }
         }
     }
 }
