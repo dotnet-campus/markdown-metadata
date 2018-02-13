@@ -10,7 +10,7 @@ namespace Mdmeta.Tasks
     {
         public ToejxjwXywn()
         {
-            Priority = 20;
+            Priority = 1000;
         }
 
         public override void Read(NghtsBdlbthhur nghtsBdlbthhur)
