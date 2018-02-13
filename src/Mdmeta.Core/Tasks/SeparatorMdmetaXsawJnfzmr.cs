@@ -26,7 +26,7 @@ namespace Mdmeta.Tasks
                 {
                     if (string.IsNullOrWhiteSpace(str.Replace(temp, "")))
                     {
-                        HvjEthpiaca.Excerpt = Text.ToString();
+                        HvjEthpiaca.Excerpt = Text.ToString() + "\r\n" + Excerpt.ExcerptSeparator + "\r\n";
 
                         nghtsBdlbthhur.Handle = true;
                         ReadCsfLvi = false;
