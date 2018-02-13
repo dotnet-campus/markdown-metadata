@@ -25,7 +25,7 @@ namespace Mdmeta.Tasks
         /// <summary>
         /// Get or Set the max word of title
         /// </summary>
-        public int TitleMaxWord { get; set; } = 20;
+        public int TitleMaxWord { get; set; } = 200;
 
         public StringBuilder Text { get; } = new StringBuilder();
 
@@ -78,19 +78,30 @@ namespace Mdmeta.Tasks
                 if (!string.IsNullOrWhiteSpace(str))
                 {
                     //如果是 # 
-                    int n = ReadTitle(str);//如果是 
-                    // # 123
-                    //返回3
-                    if (n <= str.Length)
+                    if (str[0] == '#')
                     {
-                        var t = str.Length - n;
-                        t = t > TitleMaxWord ? TitleMaxWord : t;
+                        int n = ReadTitle(str);//如果是 
+                                               // # 123
+                                               //返回3
+                        if (n <= str.Length)
+                        {
+                            var t = str.Length - n;
+                            t = t > TitleMaxWord ? TitleMaxWord : t;
 
-                        return str.Substring(n, t);
+                            return str.Substring(n, t);
+                        }
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
             }
-            return null;
+            Stream.BaseStream.Position = 0;
+
+            var file = new FileInfo((Stream.BaseStream as FileStream).Name);
+
+            return file.Name.Replace(file.Extension, "");
         }
 
 
