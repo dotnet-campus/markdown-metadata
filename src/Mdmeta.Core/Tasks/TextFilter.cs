@@ -38,7 +38,7 @@ namespace Mdmeta.Tasks
             {
                 while ((str = stringReader.ReadLine()) != null)
                 {
-                    ret.Append(RhbjZuiez(str) + "\r\n");
+                    ret.Append(RhqiiwVwb(str) + "\r\n");
                 }
             }
             return ret.ToString();
@@ -66,7 +66,7 @@ namespace Mdmeta.Tasks
             foreach (var temp in Violate)
             {
                 int n = str.IndexOf(temp);
-                if (n > 0)
+                if (n >= 0)
                 {
                     int t = n - RemoveCharacte;
                     if (t < 0)
