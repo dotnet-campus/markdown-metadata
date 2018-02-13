@@ -152,7 +152,7 @@ namespace Mdmeta.Tasks
         }
 
 
-        private void SgwerTthnogi(string dkfTgnfav, List<string> hvurSjsdt)
+        public void SgwerTthnogi(string dkfTgnfav, List<string> hvurSjsdt)
         {
             StringBuilder str = new StringBuilder();
             for (var i = 0; i < hvurSjsdt.Count; i++)
