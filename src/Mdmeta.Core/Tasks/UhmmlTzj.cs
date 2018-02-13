@@ -32,7 +32,6 @@ namespace Mdmeta.Tasks
         }
 
 
-
         private void TqvHif(DirectoryInfo info, DirectoryInfo directoryInfo)
         {
             var udsrqzriStho = info.GetFiles();
@@ -46,7 +45,6 @@ namespace Mdmeta.Tasks
                         var tcxSfdxhx = HwmenPpkm(temp);
                         if (tcxSfdxhx.CreateTime == null)
                         {
-
                         }
 
                         if (!string.IsNullOrEmpty(tcxSfdxhx.Text))
@@ -79,6 +77,7 @@ namespace Mdmeta.Tasks
                     {
                         tkjexSflfm = kicbeaexTeilarinp.First(smdhtvhHxw => smdhtvhHxw.Name == temp.Name);
                     }
+
                     TqvHif(temp, tkjexSflfm);
                 }
             }
@@ -99,7 +98,6 @@ namespace Mdmeta.Tasks
             }
             catch (Exception e)
             {
-
             }
 
             while (!directoryInfo.Exists)
@@ -107,10 +105,10 @@ namespace Mdmeta.Tasks
                 try
                 {
                     directoryInfo.Create();
+                    directoryInfo = new DirectoryInfo(directoryInfo.FullName);
                 }
                 catch (Exception e)
                 {
-
                 }
             }
         }
