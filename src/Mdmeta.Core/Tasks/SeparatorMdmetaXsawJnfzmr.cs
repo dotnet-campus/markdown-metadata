@@ -11,7 +11,7 @@ namespace Mdmeta.Tasks
         public SeparatorMdmetaXsawJnfzmr(Excerpt excerpt)
         {
             Excerpt = excerpt;
-            Priority = 100;
+            Priority = 1;
         }
 
         public override void Read(NghtsBdlbthhur nghtsBdlbthhur)
