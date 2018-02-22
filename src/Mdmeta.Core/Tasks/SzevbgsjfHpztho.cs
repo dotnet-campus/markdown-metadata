@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Mdmeta.Tasks
@@ -10,15 +11,29 @@ namespace Mdmeta.Tasks
         {
             string str = hvjEthpiaca.Title;
             str = str.Replace(" ", "-");
-            var sxxzjDtpw = "!\t*\t\'\t(\t)\t;\t:\t@\t&\t=\t+\t$\t,\t/\t?\t#\t[\t]".Replace("\t", "");
-            //str = Uri.EscapeUriString(str);
-            foreach (var temp in sxxzjDtpw)
-            {
-                str = str.Replace(temp.ToString(), "");
-            }
 
+            str = MakeValidFileName(str);
 
             return KwxvaSnvsyucw(hvjEthpiaca.Time) + "-" + str;
+        }
+
+        public static string MakeValidFileName(string text, string replacement = "_")
+        {
+            StringBuilder str = new StringBuilder();
+            var invalidFileNameChars = System.IO.Path.GetInvalidFileNameChars();
+            foreach (var c in text)
+            {
+                if (invalidFileNameChars.Contains(c))
+                {
+                    str.Append(replacement ?? "");
+                }
+                else
+                {
+                    str.Append(c);
+                }
+            }
+
+            return str.ToString();
         }
 
         private static string KwxvaSnvsyucw(string str)
