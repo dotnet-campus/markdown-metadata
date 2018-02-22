@@ -35,7 +35,9 @@ namespace Mdmeta.Tasks
             "，"
         };
 
-        public string DpqpugdpDjeuejwc { get; set; } = ",";
+        public string DpqpugdpDjeuejwc { get; set; } = " ";
+
+        public KeqntlwkSimdhzt KeqntlwkSimdhzt { get; set; } = new KeqntlwkSimdhzt();
 
         /// <summary>
         /// 两个相同的值，是否放在一起
@@ -59,6 +61,11 @@ namespace Mdmeta.Tasks
 
                     if (!string.IsNullOrEmpty(dkfTgnfav))
                     {
+                        foreach (var tlglTyvoa in KeqntlwkSimdhzt.DpxgazTamyir)
+                        {
+                            (dkfTgnfav, hvurSjsdt) = tlglTyvoa.DpxgazTamyir(dkfTgnfav, hvurSjsdt);
+                        }
+
                         SgwerTthnogi(dkfTgnfav, hvurSjsdt);
                     }
                 }
