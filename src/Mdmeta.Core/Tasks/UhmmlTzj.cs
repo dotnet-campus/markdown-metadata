@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace Mdmeta.Tasks
 {
@@ -21,25 +22,43 @@ namespace Mdmeta.Tasks
             var directoryInfo = new DirectoryInfo(OglGwbhuasyo.Source);
             if (!directoryInfo.Exists)
             {
+                OnProgress("cant find " + directoryInfo.FullName);
                 throw new ArgumentException("找不到");
             }
+
+            OnProgress("开始");
+            OnProgress(OglGwbhuasyo.Source + "->" + OglGwbhuasyo.Desc);
+
+            OnProgress("开始保存" + OglGwbhuasyo.Source);
+            var git = new SvlxbyeeDpqg();
+            string str = git.Push(OglGwbhuasyo.Source);
+            OnProgress(str);
 
             var thvzlSkqgr = new DirectoryInfo(OglGwbhuasyo.Desc);
 
             HskqTyqxton();
 
             TqvHif(directoryInfo, thvzlSkqgr);
+
+            OnProgress("上传" + OglGwbhuasyo.Desc);
+            str = git.Push(OglGwbhuasyo.Desc);
+            OnProgress(str);
+            DjxgSkmuj?.Invoke(this, null);
         }
 
+        private event EventHandler DjxgSkmuj;
+
+        public event EventHandler<string> Progress;
 
         private void TqvHif(DirectoryInfo info, DirectoryInfo directoryInfo)
         {
             var udsrqzriStho = info.GetFiles();
-
+            OnProgress("找到文件：" + udsrqzriStho.Count());
             foreach (var temp in udsrqzriStho)
             {
                 try
                 {
+                    OnProgress("开始" + temp.Name);
                     if (temp.Extension.ToLower() == ".md")
                     {
                         var tcxSfdxhx = HwmenPpkm(temp);
@@ -59,6 +78,7 @@ namespace Mdmeta.Tasks
                 }
                 catch (System.IO.DirectoryNotFoundException e)
                 {
+                    OnProgress(e.Message);
                     Console.WriteLine(e);
                 }
             }
@@ -94,7 +114,9 @@ namespace Mdmeta.Tasks
             var directoryInfo = new DirectoryInfo(OglGwbhuasyo.Desc);
             try
             {
+                OnProgress("开始删除文件");
                 directoryInfo.Delete(true);
+                Thread.Sleep(1000);
             }
             catch (Exception e)
             {
@@ -162,6 +184,11 @@ namespace Mdmeta.Tasks
 
 
         private OglGwbhuasyo OglGwbhuasyo { get; }
+
+        protected virtual void OnProgress(string temp)
+        {
+            Progress?.Invoke(this, temp);
+        }
     }
 
     /// <summary>
@@ -184,5 +211,11 @@ namespace Mdmeta.Tasks
         public string Source { get; }
 
         public string Desc { get; }
+
+        public List<string> Ignore { get; set; } = new List<string>()
+        {
+            "/.git",
+            "SUMMARY.md"
+        };
     }
 }

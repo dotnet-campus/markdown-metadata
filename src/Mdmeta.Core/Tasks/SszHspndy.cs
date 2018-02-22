@@ -7,7 +7,7 @@
             SkfDqxqordlu = skfDqxqordlu;
         }
 
-        public HvjEthpiaca SkfDqxqordlu {  get; }
+        public HvjEthpiaca SkfDqxqordlu { get; }
 
         public string DvyovKysizejh(string hfzedpSfkgf)
         {
@@ -19,5 +19,6 @@
             return hfzedpSfkgf;
         }
     }
+
     //SszHspndy
 }
