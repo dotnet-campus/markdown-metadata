@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mdmeta.Tasks
 {
-    class SvlxbyeeDpqg
+    internal class SvlxbyeeDpqg : IHavfTreqbajzx
     {
         public string Push(string folder)
         {
@@ -161,11 +161,11 @@ namespace Mdmeta.Tasks
             //向标准输入写入要执行的命令。这里使用&是批处理命令的符号，表示前面一个命令不管是否执行成功都执行后面(exit)命令，如果不执行exit命令，后面调用ReadToEnd()方法会假死
             //同类的符号还有&&和||前者表示必须前一个命令执行成功才会执行后面的命令，后者表示必须前一个命令执行失败才会执行后面的命令
 
-
             //获取cmd窗口的输出信息
             string output = p.StandardOutput.ReadToEnd();
             //Console.WriteLine(output);
             output += p.StandardError.ReadToEnd();
+
             //Console.WriteLine(output);
 
             //StreamReader reader = p.StandardOutput;
