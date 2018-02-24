@@ -14,6 +14,11 @@ namespace Mdmeta.Tasks
 
         public string Composer { get; set; }
 
+        /// <summary>
+        /// 文件所在路径
+        /// </summary>
+        public string SwwenmwzTma { get; set; }
+
         public List<(string dkfTgnfav, string hvurSjsdt)> DeopvvkHjiz { set; get; } = new List<(string dkfTgnfav, string hvurSjsdt)>();
 
         public List<string> HqshpnjiKlclzh { get; set; }
