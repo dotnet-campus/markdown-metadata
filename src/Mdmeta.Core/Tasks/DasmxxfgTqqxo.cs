@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Mdmeta.Tasks
 {
-    class DasmxxfgTqqxo
+    public class DasmxxfgTqqxo
     {
         /// <inheritdoc />
         protected DasmxxfgTqqxo()
@@ -16,11 +16,22 @@ namespace Mdmeta.Tasks
         public List<string> DkwusilnDnwtwddd { get; set; } = new List<string>()
         {
             "VisualStudio",
-            "wpf",
-            "win10",
-            "uwp",
-            "git"
+            "WPF",
+            "Win10",
+            "UWP",
+            "git",
+            "dotnet",
+            "jekyll",
+            "win2d",
+            "爬虫",
         };
+
+        public List<(string kyizlgozbHiwgxncf, string str)> DqkhwlpaTbz =
+            new List<(string kyizlgozbHiwgxncf, string str)>()
+            {
+                ("C#", "C#"),
+                ("C＃", "C#"),
+            };
 
         public void DmutmraDtgzwihr(HvjEthpiaca hvjEthpiaca, List<MdmetaXsawJnfzmr> mdmetaXsawJnfzmrs)
         {
@@ -29,16 +40,21 @@ namespace Mdmeta.Tasks
             {
                 //从标题获取
                 var hbkdcedDwgqbtarl = hvjEthpiaca.Title;
-                var kqqoremgTzexiwd = DkwusilnDnwtwddd.Where(temp=> hbkdcedDwgqbtarl.IndexOf(temp, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+                var kqqoremgTzexiwd = DkwusilnDnwtwddd
+                    .Where(temp => hbkdcedDwgqbtarl.IndexOf(temp, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+                kqqoremgTzexiwd.AddRange(DqkhwlpaTbz.Where(temp =>
+                        hbkdcedDwgqbtarl.IndexOf(temp.kyizlgozbHiwgxncf, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .Select(temp => temp.str));
 
-                var kruShamznt = mdmetaXsawJnfzmrs.FirstOrDefault(temp=>temp is DwwHdwtgcqjh);
+                var kruShamznt = mdmetaXsawJnfzmrs.FirstOrDefault(temp => temp is DwwHdwtgcqjh);
                 var hzmuHsgsqwjyq = new DwwHdwtgcqjh();
                 if (kruShamznt != null)
                 {
-                    hzmuHsgsqwjyq.DpqpugdpDjeuejwc= ((DwwHdwtgcqjh)kruShamznt).DpqpugdpDjeuejwc;
+                    hzmuHsgsqwjyq.DpqpugdpDjeuejwc = ((DwwHdwtgcqjh) kruShamznt).DpqpugdpDjeuejwc;
                 }
 
                 hzmuHsgsqwjyq.HvjEthpiaca = hvjEthpiaca;
+                hzmuHsgsqwjyq.SbqluSsdrhbfb = true;
                 hzmuHsgsqwjyq.SgwerTthnogi("标签", kqqoremgTzexiwd);
             }
         }
