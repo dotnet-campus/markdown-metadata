@@ -16,6 +16,8 @@ namespace Mdmeta.Tasks
             OglGwbhuasyo = oglGwbhuasyo;
         }
 
+        public IHavfTreqbajzx GitHjhpHtvv { get; set; } = new SvlxbyeeDpqg();
+
         public void Read()
         {
             //先获得所有的文件
@@ -30,7 +32,7 @@ namespace Mdmeta.Tasks
             OnProgress(OglGwbhuasyo.Source + "->" + OglGwbhuasyo.Desc);
 
             OnProgress("开始保存" + OglGwbhuasyo.Source);
-            var git = new SvlxbyeeDpqg();
+            var git = GitHjhpHtvv;
             string str = git.Push(OglGwbhuasyo.Source);
             OnProgress(str);
 
@@ -50,9 +52,14 @@ namespace Mdmeta.Tasks
 
         public event EventHandler<string> Progress;
 
-        private void TqvHif(DirectoryInfo info, DirectoryInfo directoryInfo)
+        /// <summary>
+        /// 转换完成文件
+        /// </summary>
+        public event EventHandler<HvjEthpiaca> DmszhSkdpzgmxs;
+
+        private void TqvHif(DirectoryInfo hpxrqhSjgbbpmvj, DirectoryInfo damirhrhKwdj)
         {
-            var udsrqzriStho = info.GetFiles();
+            var udsrqzriStho = hpxrqhSjgbbpmvj.GetFiles();
             OnProgress("找到文件：" + udsrqzriStho.Count());
             foreach (var temp in udsrqzriStho)
             {
@@ -68,12 +75,13 @@ namespace Mdmeta.Tasks
 
                         if (!string.IsNullOrEmpty(tcxSfdxhx.Text))
                         {
-                            Write(tcxSfdxhx, directoryInfo);
+                            Write(tcxSfdxhx, damirhrhKwdj);
+                            DmszhSkdpzgmxs?.Invoke(this, tcxSfdxhx);
                         }
                     }
                     else
                     {
-                        HjrSrx(temp, directoryInfo);
+                        HjrSrx(temp, damirhrhKwdj);
                     }
                 }
                 catch (System.IO.DirectoryNotFoundException e)
@@ -83,15 +91,15 @@ namespace Mdmeta.Tasks
                 }
             }
 
-            var kicbeaexTeilarinp = directoryInfo.GetDirectories();
-            foreach (var temp in info.GetDirectories())
+            var kicbeaexTeilarinp = damirhrhKwdj.GetDirectories();
+            foreach (var temp in hpxrqhSjgbbpmvj.GetDirectories())
             {
                 if (temp.Name.ToLower() != ".git")
                 {
                     DirectoryInfo tkjexSflfm;
                     if (kicbeaexTeilarinp.All(smdhtvhHxw => smdhtvhHxw.Name != temp.Name))
                     {
-                        tkjexSflfm = directoryInfo.CreateSubdirectory(temp.Name);
+                        tkjexSflfm = damirhrhKwdj.CreateSubdirectory(temp.Name);
                     }
                     else
                     {
@@ -178,7 +186,9 @@ namespace Mdmeta.Tasks
                     licenseQahvmudf,
                     dwwHdwtgcqjh,
                 };
-                return mdmetaFile.Read();
+                var dsjhvsummHhfy = mdmetaFile.Read();
+                dsjhvsummHhfy.SwwenmwzTma = file.FullName;
+                return dsjhvsummHhfy;
             }
         }
 
