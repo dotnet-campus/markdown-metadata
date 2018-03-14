@@ -12,7 +12,7 @@ namespace Mdmeta.Tasks
     {
         public HzvhPaurvmoz()
         {
-            Priority = 10;
+            Priority = 100;
         }
 
         public override void Read(NghtsBdlbthhur nghtsBdlbthhur)

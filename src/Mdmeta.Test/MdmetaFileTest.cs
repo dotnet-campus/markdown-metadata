@@ -173,7 +173,7 @@ namespace Mdmeta.Test
         [TestMethod()]
         public void UhmmlTzj()
         {
-            var oglGwbhuasyo = new OglGwbhuasyo("lindexi", "E:\\temp\\lindexi", "E:\\temp\\uwp_introduction");
+            var oglGwbhuasyo = new OglGwbhuasyo("lindexi", "E:\\temp\\lindexi\\_posts", "E:\\temp\\uwp_introduction");
             var uhmmlTzj = new UhmmlTzj(oglGwbhuasyo);
 
             uhmmlTzj.Read();
@@ -263,6 +263,92 @@ namespace Mdmeta.Test
 
             Assert.AreEqual(kdzqswxzTyumwiara[0].dkfTgnfav, "标签");
             Assert.AreEqual(kdzqswxzTyumwiara[0].hvurSjsdt, "VisualStudio,调试");
+        }
+
+        [TestMethod]
+        public void KeqntlwkSimdhztDaujfTlkl()
+        {
+            var keqntlwkSimdhzt = new KeqntlwkSimdhzt();
+            var tlglTyvoa = keqntlwkSimdhzt.DpxgazTamyir[0];
+            string dkfTgnfav = "标签";
+            List<string> hvurSjsdt = new List<string>()
+            {
+                "visualStudio",
+                "visualstudio",
+                "win10",
+                "wpf",
+                "uwp",
+                "Uwp",
+                "Dotnet",
+                "Win2d"
+            };
+
+            tlglTyvoa.DpxgazTamyir(dkfTgnfav, hvurSjsdt);
+
+            var dkastHukgn = new List<string>()
+            {
+                "VisualStudio",
+                "VisualStudio",
+                "Win10",
+                "WPF",
+                "UWP",
+                "UWP",
+                "dotnet",
+                "win2d",
+            };
+
+            for (var i = 0; i < dkastHukgn.Count; i++)
+            {
+                Assert.AreEqual(dkastHukgn[i], hvurSjsdt[i]);
+            }
+        }
+
+        [TestMethod]
+        public void DmutmraDtgzwihr()
+        {
+            var hvjEthpiaca = new HvjEthpiaca()
+            {
+                Title = "win10 uwp 获取设备"
+            };
+            var mdmetaXsawJnfzmr = new List<MdmetaXsawJnfzmr>();
+            var dasmxxfgTqqxo = DasmxxfgTqqxo.HfuvuwTwve;
+            dasmxxfgTqqxo.DmutmraDtgzwihr(hvjEthpiaca, mdmetaXsawJnfzmr);
+        }
+
+        [TestMethod]
+        public void KvfibTfbyd()
+        {
+            var hanazbnsoKoakli = "E:\\temp\\xx\\1\\1.txt";
+
+            var hxwxmDvkwv = "E:\\temp\\xx1";
+
+            var tcgKbhymfr = "E:\\temp\\xx";
+
+            var hubacKnazbhndc = SrluvmDvlyhpviv.TlfopdaiiStdclq(tcgKbhymfr, hanazbnsoKoakli, hxwxmDvkwv);
+
+            Assert.AreEqual(hubacKnazbhndc.FullName, "E:\\temp\\xx1\\1");
+        }
+
+        [TestMethod]
+        public void DdfTtjunwdt()
+        {
+            var dsfuDewuwwhc = new DsfuDewuwwhc();
+
+            dsfuDewuwwhc.HvjEthpiaca = new HvjEthpiaca();
+
+
+            var nghtsBdlbthhur = new NghtsBdlbthhur(null, "<!--more-->");
+
+            dsfuDewuwwhc.Read(nghtsBdlbthhur);
+
+            nghtsBdlbthhur = new NghtsBdlbthhur(null, "<!-- 草稿 -->");
+            dsfuDewuwwhc.Read(nghtsBdlbthhur);
+
+
+            Assert.AreEqual(dsfuDewuwwhc.HvjEthpiaca.HqshpnjiKlclzh.Count, 2);
+            Assert.AreEqual(dsfuDewuwwhc.HvjEthpiaca.HqshpnjiKlclzh[0], "more");
+
+            Console.WriteLine(dsfuDewuwwhc.HvjEthpiaca.HqshpnjiKlclzh[1]);
         }
     }
 }

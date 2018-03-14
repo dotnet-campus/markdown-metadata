@@ -61,11 +61,13 @@ namespace Mdmeta.Tasks
         {
             var udsrqzriStho = hpxrqhSjgbbpmvj.GetFiles();
             OnProgress("找到文件：" + udsrqzriStho.Count());
+           
             foreach (var temp in udsrqzriStho)
             {
                 try
                 {
                     OnProgress("开始" + temp.Name);
+
                     if (temp.Extension.ToLower() == ".md")
                     {
                         var tcxSfdxhx = HwmenPpkm(temp);
@@ -75,7 +77,7 @@ namespace Mdmeta.Tasks
 
                         if (!string.IsNullOrEmpty(tcxSfdxhx.Text))
                         {
-                            Write(tcxSfdxhx, damirhrhKwdj);
+                            //Write(tcxSfdxhx, damirhrhKwdj);
                             DmszhSkdpzgmxs?.Invoke(this, tcxSfdxhx);
                         }
                     }
@@ -176,6 +178,7 @@ namespace Mdmeta.Tasks
                 var toejxjwXywn = new ToejxjwXywn();
                 var licenseQahvmudf = new LicenseQahvmudf();
                 var dwwHdwtgcqjh = new DwwHdwtgcqjh();
+                var kvhoSex = new DsfuDewuwwhc();
 
                 mdmetaFile.MdmetaXsawJnfzmrs = new List<MdmetaXsawJnfzmr>()
                 {
@@ -185,6 +188,7 @@ namespace Mdmeta.Tasks
                     hzvhPaurvmoz,
                     licenseQahvmudf,
                     dwwHdwtgcqjh,
+                    kvhoSex,
                 };
                 var dsjhvsummHhfy = mdmetaFile.Read();
                 dsjhvsummHhfy.SwwenmwzTma = file.FullName;

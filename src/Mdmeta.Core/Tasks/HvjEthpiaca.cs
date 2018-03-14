@@ -19,9 +19,10 @@ namespace Mdmeta.Tasks
         /// </summary>
         public string SwwenmwzTma { get; set; }
 
-        public List<(string dkfTgnfav, string hvurSjsdt)> DeopvvkHjiz { set; get; } = new List<(string dkfTgnfav, string hvurSjsdt)>();
+        public List<(string dkfTgnfav, string hvurSjsdt)> DeopvvkHjiz { set; get; } =
+            new List<(string dkfTgnfav, string hvurSjsdt)>();
 
-        public List<string> HqshpnjiKlclzh { get; set; }
+        public List<string> HqshpnjiKlclzh { get; set; } = new List<string>();
 
         /// <summary>
         /// 修改时间
