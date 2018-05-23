@@ -350,5 +350,37 @@ namespace Mdmeta.Test
 
             Console.WriteLine(dsfuDewuwwhc.HvjEthpiaca.HqshpnjiKlclzh[1]);
         }
+
+        [TestMethod]
+        public void KyauowHcguit()
+        {
+            var str = "E:\\ÉÏ´«\\²©¿Í\\README.md";
+
+            using (StreamReader stream = new StreamReader(str))
+            {
+                var mdmetaFile = new MdmetaFile(stream);
+
+                var qzgTnnknwsMdmetaXsawJnfzmr = new QzgTnnknwsMdmetaXsawJnfzmr();
+                var hzvhPaurvmoz = new HzvhPaurvmoz();
+                var separatorMdmetaXsawJnfzmr = new SeparatorMdmetaXsawJnfzmr(new Excerpt(null, "<!--more-->"));
+                var toejxjwXywn = new ToejxjwXywn();
+                var licenseQahvmudf = new LicenseQahvmudf();
+                var dwwHdwtgcqjh = new DwwHdwtgcqjh();
+                var kvhoSex = new DsfuDewuwwhc();
+
+                mdmetaFile.MdmetaXsawJnfzmrs = new List<MdmetaXsawJnfzmr>()
+                {
+                    qzgTnnknwsMdmetaXsawJnfzmr,
+                    separatorMdmetaXsawJnfzmr,
+                    toejxjwXywn,
+                    hzvhPaurvmoz,
+                    licenseQahvmudf,
+                    dwwHdwtgcqjh,
+                    kvhoSex,
+                };
+
+                var tzkjbthKlk = mdmetaFile.Read();
+            }
+        }
     }
 }

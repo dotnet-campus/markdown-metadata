@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Mdmeta.Tasks
@@ -44,8 +45,13 @@ namespace Mdmeta.Tasks
 
         private bool SnvkjhDpzb()
         {
-            return TcxSfdxhx.HqshpnjiKlclzh.Contains("草稿");
+            return KfeoeturdHfq.Any(temp => TcxSfdxhx.HqshpnjiKlclzh.Contains(temp));
         }
+
+        public List<string> KfeoeturdHfq { get; set; } = new List<string>()
+        {
+            "草稿",
+        };
 
         private void Write(HvjEthpiaca tcxSfdxhx, DirectoryInfo sxgmqltKgkmqsec)
         {

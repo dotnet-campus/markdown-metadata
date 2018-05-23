@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Mdmeta.Tasks
@@ -34,6 +35,13 @@ namespace Mdmeta.Tasks
 
         public string HujtyTodfjsyfv { get; set; } = ".md";
 
+        public List<string> DlmhTvl { set; get; } =new List<string>()
+        {
+            ".git"
+        };
+
+        public IHavfTreqbajzx KrqwvyxebHua { get; set; }
+
         public void TeizycaiKjb()
         {
             var hpyqmoHuvmyi = new DirectoryInfo(SkmSdocrzfnw);
@@ -47,6 +55,8 @@ namespace Mdmeta.Tasks
             DrfnjpfhwKbg();
 
             DaxnplTftvz();
+
+            KrqwvyxebHua.Push(SkmSdocrzfnw);
         }
 
         private void KmnhlHbjk(DirectoryInfo duambhnsTrecxp)
@@ -63,7 +73,7 @@ namespace Mdmeta.Tasks
                 Console.WriteLine(e);
             }
 
-            foreach (var temp in duambhnsTrecxp.GetDirectories())
+            foreach (var temp in duambhnsTrecxp.GetDirectories().Where(temp=>DlmhTvl.All(ssyvsiekDxbgea => ssyvsiekDxbgea != temp.Name)))
             {
                 KmnhlHbjk(temp);
             }

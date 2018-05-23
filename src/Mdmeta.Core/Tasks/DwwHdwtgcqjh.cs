@@ -125,6 +125,10 @@ namespace Mdmeta.Tasks
                     {
                         sbhcKdd = sbhcKdd.Substring(n + 1).Trim();
                     }
+                    else
+                    {
+                        sbhcKdd = "";
+                    }
                 }
                 else
                 {

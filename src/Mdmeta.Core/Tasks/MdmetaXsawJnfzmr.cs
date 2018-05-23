@@ -23,6 +23,11 @@
         /// <returns></returns>
         public abstract void Read(NghtsBdlbthhur nghtsBdlbthhur);
 
+        public virtual void HgvaHhloe()
+        {
+
+        }
+
         public HvjEthpiaca HvjEthpiaca { get; set; }
     }
 }

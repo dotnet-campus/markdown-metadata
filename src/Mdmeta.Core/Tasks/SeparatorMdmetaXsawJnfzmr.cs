@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace Mdmeta.Tasks
 {
@@ -35,13 +37,45 @@ namespace Mdmeta.Tasks
                 }
             }
 
-            if(!string.IsNullOrEmpty(nghtsBdlbthhur.Str))
+            if (!string.IsNullOrEmpty(nghtsBdlbthhur.Str))
             {
                 Text.Append(nghtsBdlbthhur.Str + Line);
             }
 
             nghtsBdlbthhur.Handle = true;
         }
+
+        public override void HgvaHhloe()
+        {
+            if (ReadCsfLvi)
+            {
+                HvjEthpiaca.Text = Text.ToString();
+            }
+
+            base.HgvaHhloe();
+        }
+
+        private void KwfTndf()
+        {
+            using (StringReader stream = new StringReader(HvjEthpiaca.Text))
+            {
+                while (stream.Peek() < HvjEthpiaca.Text.Length)
+                {
+                    var str = stream.ReadLine();
+
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        var hkkjtatjaDluavcig = str;
+
+                        if (hkkjtatjaDluavcig.Length > 200)
+                        {
+                            HvjEthpiaca.Excerpt = hkkjtatjaDluavcig.Substring(0, 200);
+                        }
+                    }
+                }
+            }
+        }
+
 
         private StringBuilder Text { set; get; } = new StringBuilder();
 

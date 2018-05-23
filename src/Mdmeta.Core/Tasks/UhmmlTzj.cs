@@ -77,7 +77,6 @@ namespace Mdmeta.Tasks
 
                         if (!string.IsNullOrEmpty(tcxSfdxhx.Text))
                         {
-                            //Write(tcxSfdxhx, damirhrhKwdj);
                             DmszhSkdpzgmxs?.Invoke(this, tcxSfdxhx);
                         }
                     }

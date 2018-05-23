@@ -6,8 +6,6 @@ using System.Text;
 
 namespace Mdmeta.Tasks
 {
-
-
     public class MdmetaFile
     {
         public MdmetaFile(StreamReader stream)
@@ -20,6 +18,11 @@ namespace Mdmeta.Tasks
         public List<MdmetaXsawJnfzmr> MdmetaXsawJnfzmrs { get; set; } = new List<MdmetaXsawJnfzmr>()
         {
             new QzgTnnknwsMdmetaXsawJnfzmr()
+        };
+
+        public List<IStalirromearSikal> StalirromearSikals { get; set; }=new List<IStalirromearSikal>()
+        {
+            new MathStalirromearSikal()
         };
 
         /// <summary>
@@ -60,8 +63,19 @@ namespace Mdmeta.Tasks
                 }
             }
             hvjEthpiaca.Text = Text.ToString();
+
             DasmxxfgTqqxo.HfuvuwTwve.DmutmraDtgzwihr(hvjEthpiaca, MdmetaXsawJnfzmrs);
-            
+
+            foreach (var temp in MdmetaXsawJnfzmrs)
+            {
+                temp.HgvaHhloe();
+            }
+
+            foreach (var temp in StalirromearSikals)
+            {
+                temp.Read(hvjEthpiaca);
+            }
+
             return hvjEthpiaca;
         }
 
