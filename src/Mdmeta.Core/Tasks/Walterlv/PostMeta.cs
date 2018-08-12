@@ -18,13 +18,8 @@ namespace Mdmeta.Tasks.Walterlv
 
             var deserializer = new Deserializer();
             var matter = deserializer.Deserialize<YamlFrontMeta>(yaml);
-
+            
             return matter;
-        }
-
-        public static void UpdateToFile(Dictionary<string, string> keyValues)
-        {
-
         }
 
         public static string SpanFromFile(FileInfo file)
