@@ -10,34 +10,67 @@ namespace Mdmeta.Tasks.Walterlv
     [CommandMetadata("winit", Description = "将所有的 md 文件按照 YAML 元数据设置文件属性。")]
     public sealed class InitTask : CommandTask
     {
-        [CommandArgument("folder", Description = "要初始化 md 文件属性的文件夹。")]
+        [CommandArgument("[folder]", Description = "要初始化 md 文件属性的文件夹。（如果不指定，则会自动查找。）")]
         public string FolderName { get; set; }
 
         public override int Run()
         {
-            var folder = new DirectoryInfo(Path.GetFullPath(FolderName));
-            foreach (var file in folder.EnumerateFiles("*.md", SearchOption.AllDirectories))
+            string folderName;
+            if (FolderName == null)
             {
-                var frontMatter = ReadFrontMatter(file);
-
-                if (frontMatter == null)
+                if (File.Exists("_config.yml"))
                 {
-                    continue;
+                    folderName = "_posts";
                 }
-
-                var dateString = frontMatter.Date;
-                var publishDateString = frontMatter.PublishDate ?? dateString;
-
-                if (!string.IsNullOrWhiteSpace(dateString))
+                else if (File.Exists("config.yaml") || File.Exists("config.boml"))
                 {
-                    var date = DateTimeOffset.Parse(dateString);
-                    var publishDate = DateTimeOffset.Parse(publishDateString);
-
-                    FixFileDate(file, publishDate, date);
+                    folderName = "content";
+                }
+                else
+                {
+                    OutputError(@"没有找到 Hugo 或者 Jekyll 的静态页面目录，你可能需要手工指定一个。
+示例： mdmeta winit ./posts");
+                    return 1;
                 }
             }
+            else
+            {
+                folderName = FolderName;
+            }
+
+            var folder = new DirectoryInfo(Path.GetFullPath(folderName));
+            InitFolder(folder);
 
             return 0;
+        }
+
+        private void InitFolder(DirectoryInfo folder)
+        {
+            foreach (var file in folder.EnumerateFiles("*.md", SearchOption.AllDirectories))
+            {
+                InitFile(file);
+            }
+        }
+
+        private void InitFile(FileInfo file)
+        {
+            var frontMatter = ReadFrontMatter(file);
+
+            if (frontMatter == null)
+            {
+                return;
+            }
+
+            var dateString = frontMatter.Date;
+            var publishDateString = frontMatter.PublishDate ?? dateString;
+
+            if (!string.IsNullOrWhiteSpace(dateString))
+            {
+                var date = DateTimeOffset.Parse(dateString);
+                var publishDate = DateTimeOffset.Parse(publishDateString);
+
+                FixFileDate(file, publishDate, date);
+            }
         }
 
         private void FixFileDate(FileInfo file, DateTimeOffset createdTime, DateTimeOffset modifiedTime)
@@ -110,6 +143,14 @@ namespace Mdmeta.Tasks.Walterlv
             }
 
             return null;
+        }
+
+        private static void OutputError(string message)
+        {
+            var color = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ForegroundColor = color;
         }
     }
 }
