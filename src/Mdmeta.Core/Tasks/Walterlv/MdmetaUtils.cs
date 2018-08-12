@@ -7,10 +7,15 @@ namespace Mdmeta.Tasks.Walterlv
     {
         public static void OutputError(string message)
         {
-            var color = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(message);
+            OutputOn(message, ConsoleColor.Red);
+        }
+
+        public static void OutputOn(string message, ConsoleColor color)
+        {
+            var oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
+            Console.WriteLine(message);
+            Console.ForegroundColor = oldColor;
         }
 
         public static string FindPostFolder(string specifiedFolderArgument)

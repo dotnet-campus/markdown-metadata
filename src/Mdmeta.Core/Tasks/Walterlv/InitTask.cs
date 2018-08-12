@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using Mdmeta.Core;
 using static Mdmeta.Tasks.Walterlv.MdmetaUtils;
@@ -18,10 +19,19 @@ namespace Mdmeta.Tasks.Walterlv
             {
                 var folderName = FindPostFolder(FolderName);
                 var folder = new DirectoryInfo(Path.GetFullPath(folderName));
+
+                Console.WriteLine("初始化文件时间：");
+                var watch = new Stopwatch();
+                watch.Start();
+                var index = 1;
                 foreach (var file in folder.EnumerateFiles("*.md", SearchOption.AllDirectories))
                 {
+                    Console.WriteLine($"{index.ToString().PadLeft(3, ' ')} {file.FullName}");
+                    index++;
                     InitFile(file);
                 }
+                watch.Stop();
+                Console.WriteLine($"耗时：{watch.Elapsed}");
                 return 0;
             }
             catch (Exception ex)
@@ -34,7 +44,11 @@ namespace Mdmeta.Tasks.Walterlv
         private void InitFile(FileInfo file)
         {
             var frontMatter = Read(file);
-            if (frontMatter == null) return;
+            if (frontMatter == null)
+            {
+                OutputOn("    没有 YAML 元数据。", ConsoleColor.Yellow);
+                return;
+            }
 
             var dateString = frontMatter.Date;
             var publishDateString = frontMatter.PublishDate ?? dateString;
@@ -44,7 +58,12 @@ namespace Mdmeta.Tasks.Walterlv
                 var date = DateTimeOffset.Parse(dateString);
                 var publishDate = DateTimeOffset.Parse(publishDateString);
 
+                Console.WriteLine($"    创建于 {publishDate}，更新于 {date}。");
                 FixFileDate(file, publishDate, date);
+            }
+            else
+            {
+                OutputOn("    YAML 元数据中没有发现时间。", ConsoleColor.Yellow);
             }
         }
 
