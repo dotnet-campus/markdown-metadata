@@ -20,13 +20,21 @@ namespace Mdmeta.Tasks.Walterlv
             {
                 var frontMatter = ReadFrontMatter(file);
 
+                if (frontMatter == null)
+                {
+                    continue;
+                }
+
                 var dateString = frontMatter.Date;
                 var publishDateString = frontMatter.PublishDate ?? dateString;
 
-                var date = DateTimeOffset.Parse(dateString);
-                var publishDate = DateTimeOffset.Parse(publishDateString);
+                if (!string.IsNullOrWhiteSpace(dateString))
+                {
+                    var date = DateTimeOffset.Parse(dateString);
+                    var publishDate = DateTimeOffset.Parse(publishDateString);
 
-                FixFileDate(file, publishDate, date);
+                    FixFileDate(file, publishDate, date);
+                }
             }
 
             return 0;
@@ -43,6 +51,11 @@ namespace Mdmeta.Tasks.Walterlv
         {
             var yaml = FindYamlFrontMatter(file);
 
+            if (string.IsNullOrWhiteSpace(yaml))
+            {
+                return null;
+            }
+
             var deserializer = new Deserializer();
             var matter = deserializer.Deserialize<YamlFrontMeta>(yaml);
 
@@ -51,12 +64,12 @@ namespace Mdmeta.Tasks.Walterlv
 
         private static string FindYamlFrontMatter(FileInfo file)
         {
+            bool? containsYamlMatter = null;
             var yamlLines = new List<string>();
 
             using (var fileStream = file.OpenRead())
             using (var reader = new StreamReader(fileStream, Encoding.UTF8, true))
             {
-                bool? containsYamlMatter = null;
                 var line = reader.ReadLine()?.Trim();
                 while (line != null)
                 {
@@ -85,12 +98,18 @@ namespace Mdmeta.Tasks.Walterlv
                 }
             }
 
-            var builder = new StringBuilder();
-            foreach (var line in yamlLines)
+            if (containsYamlMatter is true)
             {
-                builder.AppendLine(line);
+                var builder = new StringBuilder();
+                foreach (var line in yamlLines)
+                {
+                    builder.AppendLine(line);
+                }
+
+                return builder.ToString();
             }
-            return builder.ToString();
+
+            return null;
         }
     }
 }
