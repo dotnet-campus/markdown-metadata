@@ -6,8 +6,8 @@ using static Mdmeta.Tasks.Walterlv.PostMeta;
 
 namespace Mdmeta.Tasks.Walterlv
 {
-    [CommandMetadata("winit", Description = "将所有的 md 文件按照 YAML 元数据设置文件属性。")]
-    public sealed class InitTask : CommandTask
+    [CommandMetadata("wupdate", Description = "根据文件的修改时间更新 YAML 元数据中的更新时间。")]
+    public sealed class UpdateTask : CommandTask
     {
         [CommandArgument("[folder]", Description = "要初始化 md 文件属性的文件夹。（如果不指定，则会自动查找。）")]
         public string FolderName { get; set; }
@@ -20,7 +20,7 @@ namespace Mdmeta.Tasks.Walterlv
                 var folder = new DirectoryInfo(Path.GetFullPath(folderName));
                 foreach (var file in folder.EnumerateFiles("*.md", SearchOption.AllDirectories))
                 {
-                    InitFile(file);
+                    UpdateFile(file);
                 }
                 return 0;
             }
@@ -31,28 +31,12 @@ namespace Mdmeta.Tasks.Walterlv
             }
         }
 
-        private void InitFile(FileInfo file)
+        private void UpdateFile(FileInfo file)
         {
             var frontMatter = Read(file);
             if (frontMatter == null) return;
 
-            var dateString = frontMatter.Date;
-            var publishDateString = frontMatter.PublishDate ?? dateString;
 
-            if (!string.IsNullOrWhiteSpace(dateString))
-            {
-                var date = DateTimeOffset.Parse(dateString);
-                var publishDate = DateTimeOffset.Parse(publishDateString);
-
-                FixFileDate(file, publishDate, date);
-            }
-        }
-
-        private void FixFileDate(FileInfo file, DateTimeOffset createdTime, DateTimeOffset modifiedTime)
-        {
-            file.CreationTimeUtc = createdTime.UtcDateTime;
-            file.LastWriteTimeUtc = modifiedTime.UtcDateTime;
-            file.LastAccessTimeUtc = DateTimeOffset.Now.UtcDateTime;
         }
     }
 }
