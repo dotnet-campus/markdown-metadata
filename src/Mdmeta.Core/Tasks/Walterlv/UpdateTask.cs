@@ -53,9 +53,13 @@ namespace Mdmeta.Tasks.Walterlv
             {
                 var date = DateTimeOffset.Parse(dateString);
 
-                if (file.LastWriteTimeUtc != date)
+                var writeTime = file.LastWriteTimeUtc.ToUniversalTime();
+                var roundWriteTime = new DateTimeOffset(
+                    writeTime.Year, writeTime.Month, writeTime.Day,
+                    writeTime.Hour, writeTime.Minute, writeTime.Second, TimeSpan.Zero);
+                if (roundWriteTime != date.ToUniversalTime())
                 {
-                    UpdateMetaTime(file, frontMatter, file.LastWriteTimeUtc);
+                    UpdateMetaTime(file, frontMatter, writeTime);
                 }
             }
         }
@@ -75,17 +79,20 @@ namespace Mdmeta.Tasks.Walterlv
                     {
                         // 发布时间并没有过去太久，不算作更新。
                         UpdateFrontMatter(file, originalDateString, newDateString, false);
+                        file.LastWriteTimeUtc = date.UtcDateTime;
                         return;
                     }
                 }
 
                 // 发布时间过去很久了，现在需要修改。
                 UpdateFrontMatter(file, originalDateString, newDateString, true);
+                file.LastWriteTimeUtc = date.UtcDateTime;
             }
             else
             {
                 // 早已修改过，现在只是再修改而已。
                 UpdateFrontMatter(file, originalDateString, newDateString, false);
+                file.LastWriteTimeUtc = date.UtcDateTime;
             }
         }
 
