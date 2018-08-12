@@ -7,9 +7,9 @@ namespace Mdmeta.Tasks.Walterlv
 {
     public static class PostMeta
     {
-        public static YamlFrontMeta Read(FileInfo file)
+        public static YamlFrontMeta FromFile(FileInfo file)
         {
-            var yaml = FindYamlFrontMatter(file);
+            var yaml = SpanFromFile(file);
 
             if (string.IsNullOrWhiteSpace(yaml))
             {
@@ -22,7 +22,12 @@ namespace Mdmeta.Tasks.Walterlv
             return matter;
         }
 
-        private static string FindYamlFrontMatter(FileInfo file)
+        public static void UpdateToFile(Dictionary<string, string> keyValues)
+        {
+
+        }
+
+        public static string SpanFromFile(FileInfo file)
         {
             bool? containsYamlMatter = null;
             var yamlLines = new List<string>();

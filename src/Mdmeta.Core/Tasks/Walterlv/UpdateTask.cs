@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using Mdmeta.Core;
 using static Mdmeta.Tasks.Walterlv.MdmetaUtils;
-using static Mdmeta.Tasks.Walterlv.PostMeta;
 
 namespace Mdmeta.Tasks.Walterlv
 {
@@ -12,6 +12,9 @@ namespace Mdmeta.Tasks.Walterlv
     {
         [CommandArgument("[folder]", Description = "要初始化 md 文件属性的文件夹。（如果不指定，则会自动查找。）")]
         public string FolderName { get; set; }
+
+        [CommandOption("-t|--ignore-in-hour", Description = "当修改时间与发布时间间隔在指定的小时数以内时，只更新发布时间。")]
+        public string IgnoreInHour { get; set; }
 
         public override int Run()
         {
@@ -27,6 +30,7 @@ namespace Mdmeta.Tasks.Walterlv
                 {
                     UpdateFile(file);
                 }
+
                 watch.Stop();
                 Console.WriteLine($"耗时：{watch.Elapsed}");
                 return 0;
@@ -40,7 +44,7 @@ namespace Mdmeta.Tasks.Walterlv
 
         private void UpdateFile(FileInfo file)
         {
-            var frontMatter = Read(file);
+            var frontMatter = PostMeta.FromFile(file);
             if (frontMatter == null) return;
 
             var dateString = frontMatter.Date;
@@ -58,16 +62,57 @@ namespace Mdmeta.Tasks.Walterlv
 
         private void UpdateMetaTime(FileInfo file, YamlFrontMeta frontMatter, DateTimeOffset date)
         {
-            Console.WriteLine($"- {file.FullName}");
+            var originalDateString = frontMatter.Date;
+            var newDateString = date.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss zz00");
+
             if (string.IsNullOrWhiteSpace(frontMatter.PublishDate))
             {
-                // 当没有 date 属性时，将原 date 属性改为 date_published，并添加新的 date 属性。
+                if (double.TryParse(IgnoreInHour, out var ignoreInHour))
+                {
+                    var timeSpan = TimeSpan.FromHours(ignoreInHour);
+                    var originalDate = DateTimeOffset.Parse(frontMatter.Date);
+                    if (date - originalDate < timeSpan)
+                    {
+                        // 发布时间并没有过去太久，不算作更新。
+                        UpdateFrontMatter(file, originalDateString, newDateString, false);
+                        return;
+                    }
+                }
 
+                // 发布时间过去很久了，现在需要修改。
+                UpdateFrontMatter(file, originalDateString, newDateString, true);
             }
             else
             {
-                // 当原来就有 date_published 属性时，更新 date 属性。
+                // 早已修改过，现在只是再修改而已。
+                UpdateFrontMatter(file, originalDateString, newDateString, false);
             }
+        }
+
+        private void UpdateFrontMatter(FileInfo file, string originalDate, string newDate, bool split)
+        {
+            Console.WriteLine($"- {file.FullName}");
+            var text = File.ReadAllText(file.FullName);
+            var builder = new StringBuilder(text);
+
+            if (split)
+            {
+                // date 和 date_published 应该分开更新。
+                // 适用于不存在 date_published 时。
+                Console.WriteLine($"  date_published: {originalDate}");
+                Console.WriteLine($"  date: {newDate}");
+                builder.Replace($"date: {originalDate}", $@"date_published: {originalDate}
+date: {newDate}");
+            }
+            else
+            {
+                // 只更新 date。
+                // 适用于存在 date_published，或者不存在 date_published 但无需更新 date 时。
+                Console.WriteLine($"  date: {newDate}");
+                builder.Replace($"date: {originalDate}", $@"date: {newDate}");
+            }
+
+            File.WriteAllText(file.FullName, builder.ToString());
         }
     }
 }

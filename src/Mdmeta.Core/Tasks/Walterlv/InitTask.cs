@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using Mdmeta.Core;
 using static Mdmeta.Tasks.Walterlv.MdmetaUtils;
-using static Mdmeta.Tasks.Walterlv.PostMeta;
 
 namespace Mdmeta.Tasks.Walterlv
 {
@@ -43,7 +42,7 @@ namespace Mdmeta.Tasks.Walterlv
 
         private void InitFile(FileInfo file)
         {
-            var frontMatter = Read(file);
+            var frontMatter = PostMeta.FromFile(file);
             if (frontMatter == null)
             {
                 OutputOn("    没有 YAML 元数据。", ConsoleColor.Yellow);
