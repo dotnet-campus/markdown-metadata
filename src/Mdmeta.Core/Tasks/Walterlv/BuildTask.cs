@@ -58,17 +58,15 @@ namespace Mdmeta.Tasks.Walterlv
                         break;
                     }
 
-                    if (containsYamlMatter is true)
+                    if (line != "---")
                     {
-                        if (line == "---")
-                        {
-                            break;
-                        }
-
                         yamlLines.Add(line);
+                        line = reader.ReadLine()?.Trim();
                     }
-
-                    line = reader.ReadLine()?.Trim();
+                    else
+                    {
+                        break;
+                    }
                 }
             }
 
