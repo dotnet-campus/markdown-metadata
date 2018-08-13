@@ -60,6 +60,8 @@ namespace Mdmeta.Tasks.Walterlv
                 if (roundWriteTime != date.ToUniversalTime())
                 {
                     UpdateMetaTime(file, frontMatter, writeTime);
+                    // 更新文件的最近写入时间，在此前的时间上额外添加 1ms，以便编辑器或其他软件能够识别到文件变更。
+                    file.LastWriteTimeUtc = writeTime + TimeSpan.FromMilliseconds(1);
                 }
             }
         }
@@ -79,20 +81,17 @@ namespace Mdmeta.Tasks.Walterlv
                     {
                         // 发布时间并没有过去太久，不算作更新。
                         UpdateFrontMatter(file, originalDateString, newDateString, false);
-                        file.LastWriteTimeUtc = date.UtcDateTime;
                         return;
                     }
                 }
 
                 // 发布时间过去很久了，现在需要修改。
                 UpdateFrontMatter(file, originalDateString, newDateString, true);
-                file.LastWriteTimeUtc = date.UtcDateTime;
             }
             else
             {
                 // 早已修改过，现在只是再修改而已。
                 UpdateFrontMatter(file, originalDateString, newDateString, false);
-                file.LastWriteTimeUtc = date.UtcDateTime;
             }
         }
 
