@@ -11,7 +11,7 @@ namespace Mdmeta.Tasks.Walterlv
         [YamlMember(Alias = "date", ApplyNamingConventions = false)]
         public string Date { get; set; }
 
-        [YamlMember(Alias = "date_published", ApplyNamingConventions = false)]
+        [YamlMember(Alias = "publishDate", ApplyNamingConventions = false)]
         public string PublishDate { get; set; }
 
         [YamlMember(Alias = "layout", ApplyNamingConventions = false)]
@@ -31,9 +31,14 @@ namespace Mdmeta.Tasks.Walterlv
 
         [YamlMember(Alias = "description", ApplyNamingConventions = false)]
         public string Description { get; set; }
+        
+        public string CurrentVersion => string.IsNullOrWhiteSpace(Version) ? Current : Version;
+
+        [YamlMember(Alias = "current", ApplyNamingConventions = false)]
+        public string Current { get; set; }
 
         [YamlMember(Alias = "version", ApplyNamingConventions = false)]
-        public List<VersionInfo> Version { get; set; }
+        public string Version { get; set; }
 
         [YamlMember(Alias = "versions", ApplyNamingConventions = false)]
         public List<VersionsInfo> Versions { get; set; }
