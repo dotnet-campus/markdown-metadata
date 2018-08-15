@@ -105,9 +105,9 @@ namespace Mdmeta.Tasks.Walterlv
             {
                 // date 和 date_published 应该分开更新。
                 // 适用于不存在 date_published 时。
-                Console.WriteLine($"  date_published: {originalDate}");
+                Console.WriteLine($"  publishDate: {originalDate}");
                 Console.WriteLine($"  date: {newDate}");
-                builder.Replace($"date: {originalDate}", $@"date_published: {originalDate}
+                builder.Replace($"date: {originalDate}", $@"publishDate: {originalDate}
 date: {newDate}");
             }
             else
