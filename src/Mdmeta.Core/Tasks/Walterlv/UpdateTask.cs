@@ -103,8 +103,8 @@ namespace Mdmeta.Tasks.Walterlv
 
             if (split)
             {
-                // date 和 date_published 应该分开更新。
-                // 适用于不存在 date_published 时。
+                // date 和 publishDate 应该分开更新。
+                // 适用于不存在 publishDate 时。
                 Console.WriteLine($"  publishDate: {originalDate}");
                 Console.WriteLine($"  date: {newDate}");
                 builder.Replace($"date: {originalDate}", $@"publishDate: {originalDate}
@@ -113,7 +113,7 @@ date: {newDate}");
             else
             {
                 // 只更新 date。
-                // 适用于存在 date_published，或者不存在 date_published 但无需更新 date 时。
+                // 适用于存在 publishDate，或者不存在 publishDate 但无需更新 date 时。
                 Console.WriteLine($"  date: {newDate}");
                 builder.Replace($"date: {originalDate}", $@"date: {newDate}");
             }
