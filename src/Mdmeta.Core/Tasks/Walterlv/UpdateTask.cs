@@ -59,14 +59,34 @@ namespace Mdmeta.Tasks.Walterlv
                     writeTime.Hour, writeTime.Minute, writeTime.Second, TimeSpan.Zero);
                 if (roundWriteTime != date.ToUniversalTime())
                 {
-                    UpdateMetaTime(file, frontMatter, writeTime);
+                    var splitted = UpdateMetaTime(file, frontMatter, writeTime);
                     // 更新文件的最近写入时间，在此前的时间上额外添加 10ms，以便编辑器或其他软件能够识别到文件变更。
-                    file.LastWriteTimeUtc = writeTime + TimeSpan.FromMilliseconds(10);
+                    var fileLastWriteTime = writeTime + TimeSpan.FromMilliseconds(10);
+                    if (splitted)
+                    {
+                        var fileCreationTime= DateTimeOffset.Parse(frontMatter.PublishDate).UtcDateTime;
+                        file.CreationTimeUtc = fileCreationTime;
+                        file.LastWriteTimeUtc = fileLastWriteTime;
+                    }
+                    else
+                    {
+                        file.CreationTimeUtc = fileLastWriteTime;
+                        file.LastWriteTimeUtc = fileLastWriteTime;
+                    }
                 }
             }
         }
 
-        private void UpdateMetaTime(FileInfo file, YamlFrontMeta frontMatter, DateTimeOffset date)
+        /// <summary>
+        /// 更新 Markdown Metadata 元数据。
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="frontMatter"></param>
+        /// <param name="date"></param>
+        /// <returns>
+        /// 如果更新后日期已分为发布和更新日期，则返回 true；否则返回 false。
+        /// </returns>
+        private bool UpdateMetaTime(FileInfo file, YamlFrontMeta frontMatter, DateTimeOffset date)
         {
             var originalDateString = frontMatter.Date;
             var newDateString = date.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss zz00");
@@ -81,18 +101,18 @@ namespace Mdmeta.Tasks.Walterlv
                     {
                         // 发布时间并没有过去太久，不算作更新。
                         UpdateFrontMatter(file, originalDateString, newDateString, false);
-                        return;
+                        return false;
                     }
                 }
 
                 // 发布时间过去很久了，现在需要修改。
                 UpdateFrontMatter(file, originalDateString, newDateString, true);
+                return true;
             }
-            else
-            {
-                // 早已修改过，现在只是再修改而已。
-                UpdateFrontMatter(file, originalDateString, newDateString, false);
-            }
+
+            // 早已修改过，现在只是再修改而已。
+            UpdateFrontMatter(file, originalDateString, newDateString, false);
+            return true;
         }
 
         private void UpdateFrontMatter(FileInfo file, string originalDate, string newDate, bool split)
