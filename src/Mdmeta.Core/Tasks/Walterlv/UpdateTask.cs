@@ -60,8 +60,8 @@ namespace Mdmeta.Tasks.Walterlv
                 if (roundWriteTime != date.ToUniversalTime())
                 {
                     UpdateMetaTime(file, frontMatter, writeTime);
-                    // 更新文件的最近写入时间，在此前的时间上额外添加 1ms，以便编辑器或其他软件能够识别到文件变更。
-                    file.LastWriteTimeUtc = writeTime + TimeSpan.FromMilliseconds(1);
+                    // 更新文件的最近写入时间，在此前的时间上额外添加 10ms，以便编辑器或其他软件能够识别到文件变更。
+                    file.LastWriteTimeUtc = writeTime + TimeSpan.FromMilliseconds(10);
                 }
             }
         }
