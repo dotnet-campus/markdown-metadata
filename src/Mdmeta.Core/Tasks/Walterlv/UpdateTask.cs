@@ -24,7 +24,7 @@ namespace Mdmeta.Tasks.Walterlv
                 var folder = new DirectoryInfo(Path.GetFullPath(folderName));
                 var count = 0;
 
-                Console.WriteLine("更新文件时间：");
+                Console.WriteLine("更新文件的时间元数据：");
                 var watch = new Stopwatch();
                 watch.Start();
                 foreach (var file in folder.EnumerateFiles("*.md", SearchOption.AllDirectories))
