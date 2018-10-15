@@ -22,17 +22,28 @@ namespace Mdmeta.Tasks.Walterlv
             {
                 var folderName = FindPostFolder(FolderName);
                 var folder = new DirectoryInfo(Path.GetFullPath(folderName));
+                var count = 0;
 
                 Console.WriteLine("更新文件时间：");
                 var watch = new Stopwatch();
                 watch.Start();
                 foreach (var file in folder.EnumerateFiles("*.md", SearchOption.AllDirectories))
                 {
-                    UpdateFile(file);
+                    var updated = UpdateFile(file);
+                    count += updated ? 1 : 0;
                 }
 
                 watch.Stop();
-                Console.WriteLine($"耗时：{watch.Elapsed}");
+                Console.Write($"耗时：{watch.Elapsed}，");
+                if (count > 0)
+                {
+                    OutputOn($"总计更新 {count} 个。", ConsoleColor.Green);
+                }
+                else
+                {
+                    Console.WriteLine($"总计更新 {count} 个。");
+                }
+
                 return 0;
             }
             catch (Exception ex)
@@ -42,10 +53,10 @@ namespace Mdmeta.Tasks.Walterlv
             }
         }
 
-        private void UpdateFile(FileInfo file)
+        private bool UpdateFile(FileInfo file)
         {
             var frontMatter = PostMeta.FromFile(file);
-            if (frontMatter == null) return;
+            if (frontMatter == null) return false;
 
             var dateString = frontMatter.Date;
 
@@ -73,8 +84,12 @@ namespace Mdmeta.Tasks.Walterlv
                         file.CreationTimeUtc = fileLastWriteTime;
                         file.LastWriteTimeUtc = fileLastWriteTime;
                     }
+
+                    return true;
                 }
             }
+
+            return false;
         }
 
         /// <summary>
