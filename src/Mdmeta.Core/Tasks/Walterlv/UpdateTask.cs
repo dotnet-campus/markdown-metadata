@@ -34,14 +34,14 @@ namespace Mdmeta.Tasks.Walterlv
                 }
 
                 watch.Stop();
-                Console.Write($"耗时：{watch.Elapsed}，");
                 if (count > 0)
                 {
+                    Console.Write($"耗时：{watch.Elapsed}，");
                     OutputOn($"总计更新 {count} 个。", ConsoleColor.Green);
                 }
                 else
                 {
-                    Console.WriteLine($"总计更新 {count} 个。");
+                    Console.WriteLine("没有文件需要更新。");
                 }
 
                 return 0;
