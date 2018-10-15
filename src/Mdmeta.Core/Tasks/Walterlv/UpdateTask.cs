@@ -75,7 +75,8 @@ namespace Mdmeta.Tasks.Walterlv
                     var fileLastWriteTime = writeTime + TimeSpan.FromMilliseconds(10);
                     if (splitted)
                     {
-                        var fileCreationTime= DateTimeOffset.Parse(frontMatter.PublishDate).UtcDateTime;
+                        var fileCreationTime = DateTimeOffset.Parse(
+                            frontMatter.PublishDate ?? frontMatter.Date).UtcDateTime;
                         file.CreationTimeUtc = fileCreationTime;
                         file.LastWriteTimeUtc = fileLastWriteTime;
                     }
