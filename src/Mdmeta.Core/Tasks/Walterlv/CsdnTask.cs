@@ -1,9 +1,5 @@
 ﻿using System;
 using Mdmeta.Core;
-using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
-using static Mdmeta.Tasks.Walterlv.MdmetaUtils;
 
 namespace Mdmeta.Tasks.Walterlv
 {
@@ -18,56 +14,7 @@ namespace Mdmeta.Tasks.Walterlv
 
         public override int Run()
         {
-            if (!File.Exists(FileName))
-            {
-                OutputError("文件不存在。");
-                return 4;
-            }
-
-            var file = new FileInfo(FileName);
-
-            var text = File.ReadAllText(file.FullName, Encoding.UTF8);
-            var imageRegex = new Regex(@"!\[(?<name>.+)\]\((?<path>/static/posts/[\d-]+\.png)\)");
-            var matches = imageRegex.Matches(text);
-            int count = 0;
-            foreach (Match match in matches)
-            {
-                var name = match.Groups["name"].Value;
-                var path = match.Groups["path"].Value;
-
-                var server = new Smms();
-                var localImagePath = Path.GetFullPath(ImageBasePath + path);
-                if (!File.Exists(localImagePath))
-                {
-                    Console.WriteLine(
-                        $"{count.ToString().PadLeft(2, ' ')}. " +
-                        $"{path} 已经是网络图片，无需上传。");
-                    count++;
-                    continue;
-                }
-
-                Console.Write(
-                    $"{count.ToString().PadLeft(2, ' ')}. " +
-                    $"{name} ");
-                try
-                {
-                    Console.CursorLeft = 4;
-                    var uploadedUrl = server.UploadAsync(localImagePath).Result.Url;
-                    Console.WriteLine($"{path} 已上传至 {uploadedUrl} 。");
-
-                    text = text.Replace(match.Value, $@"<!-- {match.Value} -->
-{match.Value.Replace(path, uploadedUrl)}");
-                }
-                catch (Exception ex)
-                {
-                    OutputError($"{path} 上传失败：{ex.Message}");
-                }
-
-                count++;
-            }
-
-            File.WriteAllText(file.FullName, text, Encoding.UTF8);
-            return 0;
+            throw new NotImplementedException();
         }
     }
 }
