@@ -35,7 +35,7 @@ namespace Mdmeta.Tasks.Walterlv
                 var name = match.Groups["name"].Value;
                 var path = match.Groups["path"].Value;
 
-                var smms = new Smms();
+                var server = new Smms();
                 var localImagePath = Path.GetFullPath(ImageBasePath + path);
                 if (!File.Exists(localImagePath))
                 {
@@ -49,7 +49,7 @@ namespace Mdmeta.Tasks.Walterlv
                 Console.Write(
                     $"{count.ToString().PadLeft(2, ' ')}. " +
                     $"{name} ");
-                var uploadedUrl = smms.UploadAsync(localImagePath).Result.Url;
+                var uploadedUrl = server.UploadAsync(localImagePath).Result.Url;
                 Console.CursorLeft = 4;
                 Console.WriteLine($"{path} 已上传至 {uploadedUrl} 。");
 
