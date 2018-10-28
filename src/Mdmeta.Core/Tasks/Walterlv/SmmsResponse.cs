@@ -19,5 +19,10 @@
     {
         public string code { get; set; }
         public Data data { get; set; }
+
+        public static implicit operator ImageUploadedResponse(SmmsResponse response)
+        {
+            return new ImageUploadedResponse(response.data.url);
+        }
     }
 }

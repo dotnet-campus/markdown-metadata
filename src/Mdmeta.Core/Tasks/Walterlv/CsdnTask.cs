@@ -49,7 +49,7 @@ namespace Mdmeta.Tasks.Walterlv
                 Console.Write(
                     $"{count.ToString().PadLeft(2, ' ')}. " +
                     $"{name} ");
-                var uploadedUrl = smms.UploadAsync(localImagePath).Result.data.url;
+                var uploadedUrl = smms.UploadAsync(localImagePath).Result.Url;
                 Console.CursorLeft = 4;
                 Console.WriteLine($"{path} 已上传至 {uploadedUrl} 。");
 

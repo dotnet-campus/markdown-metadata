@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 
 namespace Mdmeta.Tasks.Walterlv
 {
-    public sealed class Smms
+    public sealed class Smms : IImageServer
     {
-        public async Task<SmmsResponse> UploadAsync(string localImagePath)
+        public async Task<ImageUploadedResponse> UploadAsync(string localImagePath)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri("https://sm.ms");
