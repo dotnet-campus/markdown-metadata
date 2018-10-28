@@ -49,18 +49,24 @@ namespace Mdmeta.Tasks.Walterlv
                 Console.Write(
                     $"{count.ToString().PadLeft(2, ' ')}. " +
                     $"{name} ");
-                var uploadedUrl = server.UploadAsync(localImagePath).Result.Url;
-                Console.CursorLeft = 4;
-                Console.WriteLine($"{path} 已上传至 {uploadedUrl} 。");
+                try
+                {
+                    Console.CursorLeft = 4;
+                    var uploadedUrl = server.UploadAsync(localImagePath).Result.Url;
+                    Console.WriteLine($"{path} 已上传至 {uploadedUrl} 。");
 
-                text = text.Replace(match.Value, $@"<!-- {match.Value} -->
+                    text = text.Replace(match.Value, $@"<!-- {match.Value} -->
 {match.Value.Replace(path, uploadedUrl)}");
+                }
+                catch (Exception ex)
+                {
+                    OutputError($"{path} 上传失败：{ex.Message}");
+                }
 
                 count++;
             }
 
             File.WriteAllText(file.FullName, text, Encoding.UTF8);
-
             return 0;
         }
     }
