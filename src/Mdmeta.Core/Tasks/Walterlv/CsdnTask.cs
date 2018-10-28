@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Mdmeta.Core;
@@ -37,7 +38,8 @@ namespace Mdmeta.Tasks.Walterlv
         {
             var file = new FileInfo(markdownFile);
             var text = File.ReadAllText(file.FullName, Encoding.UTF8);
-            text = text.Replace(@"<div id=""toc""><div>", "@[TOC](本文内容)");
+            text = text.Replace(@"<div id=""toc""></div>", "@[TOC](本文内容)");
+            Console.WriteLine("已替换目录。");
 
             var imageRegex = new Regex(@"\[.+\]\(/post/[\w\-]+\.html\)");
             var matches = imageRegex.Matches(text);
@@ -48,6 +50,7 @@ namespace Mdmeta.Tasks.Walterlv
                     match.Value,
                     match.Value.Replace("](/post/", $"]({siteUrl}/post/"));
             }
+            Console.WriteLine($"已替换 {count} 个博客路径。");
         }
     }
 }
