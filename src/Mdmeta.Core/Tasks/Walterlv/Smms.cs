@@ -3,12 +3,13 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Mdmeta.Tasks.Walterlv
 {
     public sealed class Smms
     {
-        public async Task<string> UploadAsync(string localImagePath)
+        public async Task<SmmsResponse> UploadAsync(string localImagePath)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri("https://sm.ms");
@@ -21,12 +22,13 @@ namespace Mdmeta.Tasks.Walterlv
                 HttpContent content = new StreamContent(stream);
                 var form = new MultipartFormDataContent();
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                form.Add(content, "smfile", "123");
+                form.Add(content, "smfile", Path.GetFileName(localImagePath));
                 var response = await client.PostAsync("/api/upload", form);
                 result = response.Content.ReadAsStringAsync().Result;
             }
 
-            return result;
+            var smmsResponse = JsonConvert.DeserializeObject<SmmsResponse>(result);
+            return smmsResponse;
         }
     }
 }

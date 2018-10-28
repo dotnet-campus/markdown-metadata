@@ -1,4 +1,5 @@
-﻿using Mdmeta.Core;
+﻿using System;
+using Mdmeta.Core;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -28,16 +29,34 @@ namespace Mdmeta.Tasks.Walterlv
             var text = File.ReadAllText(file.FullName, Encoding.UTF8);
             var imageRegex = new Regex(@"!\[(?<name>.+)\]\((?<path>/static/posts/[\d-]+\.png)\)");
             var matches = imageRegex.Matches(text);
+            int count = 0;
             foreach (Match match in matches)
             {
                 var name = match.Groups["name"].Value;
                 var path = match.Groups["path"].Value;
 
                 var smms = new Smms();
-                var localImagePath = Path.GetFullPath(ImageBasePath+ path);
-                var uploadedUrl = smms.UploadAsync(localImagePath).Result;
+                var localImagePath = Path.GetFullPath(ImageBasePath + path);
+                if (!File.Exists(localImagePath))
+                {
+                    Console.WriteLine(
+                        $"{count.ToString().PadLeft(2, ' ')}. " +
+                        $"{path} 已经是网络图片，无需上传。");
+                    count++;
+                    continue;
+                }
 
-                text = text.Replace(text, uploadedUrl);
+                Console.Write(
+                    $"{count.ToString().PadLeft(2, ' ')}. " +
+                    $"{name} ");
+                var uploadedUrl = smms.UploadAsync(localImagePath).Result.data.url;
+                Console.CursorLeft = 4;
+                Console.WriteLine($"{path} 已上传至 {uploadedUrl} 。");
+
+                text = text.Replace(match.Value, $@"<!-- {match.Value} -->
+{match.Value.Replace(path, uploadedUrl)}");
+
+                count++;
             }
 
             File.WriteAllText(file.FullName, text, Encoding.UTF8);
