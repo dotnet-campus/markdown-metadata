@@ -50,7 +50,7 @@ namespace Mdmeta.Tasks.Walterlv
                 OutputOn("已替换目录。", ConsoleColor.Green);
             }
 
-            var imageRegex = new Regex(@"\[.+\]\(/post/[\w\-]+\.html\)");
+            var imageRegex = new Regex(@"\[.+\]\(/post/[\w\-\.]+\)");
             var matches = imageRegex.Matches(text);
             int count = 0;
             foreach (Match match in matches)
@@ -58,6 +58,7 @@ namespace Mdmeta.Tasks.Walterlv
                 text = text.Replace(
                     match.Value,
                     match.Value.Replace("](/post/", $"]({siteUrl}/post/"));
+                count++;
             }
 
             if (count == 0)
