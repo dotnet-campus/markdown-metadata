@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>Mdmeta</RootNamespace>
     <Version>0.1.0</Version>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
@@ -11,7 +11,7 @@
     <Company>walterlv</Company>
     <Product>Markdown Metadata</Product>
     <PackageId>walterlv.mdmeta</PackageId>
-    <Copyright>Copyright © walterlv 2017</Copyright>
+    <Copyright>Copyright © walterlv 2017-2018</Copyright>
     <PackageProjectUrl>https://github.com/walterlv/markdown-metadata</PackageProjectUrl>
     <RepositoryUrl>https://github.com/walterlv/markdown-metadata.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
