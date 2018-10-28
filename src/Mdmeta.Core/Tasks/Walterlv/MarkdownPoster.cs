@@ -45,9 +45,18 @@ namespace Mdmeta.Tasks.Walterlv
                     text = text.Replace(match.Value, $@"<!-- {match.Value} -->
 {match.Value.Replace(path, uploadedUrl)}");
                 }
+                catch (AggregateException ex)
+                {
+                    OutputError($"{path} 上传失败：");
+                    foreach (var e in ex.Flatten().InnerExceptions)
+                    {
+                        OutputError($"    - {e.Message}");
+                    }
+                }
                 catch (Exception ex)
                 {
-                    OutputError($"{path} 上传失败：{ex.Message}");
+                    OutputError($@"{path} 上传失败：
+    {ex.Message}");
                 }
 
                 count++;
