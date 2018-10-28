@@ -28,6 +28,8 @@ namespace Mdmeta.Tasks.Walterlv
                 return 4;
             }
 
+            Console.WriteLine($"将 {FileName} 转换为 CSDN 格式：");
+
             UploadLocalImages(FileName, ImageBasePath);
             ReplaceWithExternalResources(FileName, SiteUrl);
 
@@ -37,9 +39,16 @@ namespace Mdmeta.Tasks.Walterlv
         private static void ReplaceWithExternalResources(string markdownFile, string siteUrl)
         {
             var file = new FileInfo(markdownFile);
-            var text = File.ReadAllText(file.FullName, Encoding.UTF8);
-            text = text.Replace(@"<div id=""toc""></div>", "@[TOC](本文内容)");
-            Console.WriteLine("已替换目录。");
+            var originalText = File.ReadAllText(file.FullName, Encoding.UTF8);
+            var text = originalText.Replace(@"<div id=""toc""></div>", "@[TOC](本文内容)");
+            if (text == originalText)
+            {
+                Console.WriteLine("无需替换目录。");
+            }
+            else
+            {
+                OutputOn("已替换目录。", ConsoleColor.Green);
+            }
 
             var imageRegex = new Regex(@"\[.+\]\(/post/[\w\-]+\.html\)");
             var matches = imageRegex.Matches(text);
@@ -50,7 +59,20 @@ namespace Mdmeta.Tasks.Walterlv
                     match.Value,
                     match.Value.Replace("](/post/", $"]({siteUrl}/post/"));
             }
-            Console.WriteLine($"已替换 {count} 个博客路径。");
+
+            if (count == 0)
+            {
+                Console.WriteLine($"无需替换博客路径。");
+            }
+            else
+            {
+                OutputOn($"已替换 {count} 个博客路径。", ConsoleColor.Green);
+            }
+
+            if (text != originalText)
+            {
+                File.WriteAllText(markdownFile, text, Encoding.UTF8);
+            }
         }
     }
 }

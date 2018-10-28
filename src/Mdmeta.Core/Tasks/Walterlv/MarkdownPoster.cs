@@ -12,7 +12,8 @@ namespace Mdmeta.Tasks.Walterlv
         {
             var file = new FileInfo(markdownFile);
 
-            var text = File.ReadAllText(file.FullName, Encoding.UTF8);
+            var originalText = File.ReadAllText(file.FullName, Encoding.UTF8);
+            var text = originalText;
             //                           |  非 <!-- 开头 |  取 ！[ ] 部分  |      取 ( ) 部分
             var imageRegex = new Regex(@"(?<!\<\!\-\-\s?)!\[(?<name>.+)\]\((?<path>/static/posts/[\d-]+\.png)\)");
             var matches = imageRegex.Matches(text);
@@ -62,7 +63,10 @@ namespace Mdmeta.Tasks.Walterlv
                 count++;
             }
 
-            File.WriteAllText(file.FullName, text, Encoding.UTF8);
+            if (text != originalText)
+            {
+                File.WriteAllText(file.FullName, text, Encoding.UTF8);
+            }
         }
     }
 }
