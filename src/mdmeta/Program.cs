@@ -1,4 +1,6 @@
-﻿using Mdmeta.Core;
+﻿using System;
+using System.Diagnostics;
+using Mdmeta.Core;
 using Microsoft.Extensions.CommandLineUtils;
 
 namespace Mdmeta
@@ -26,6 +28,13 @@ namespace Mdmeta
 
             // Execute the app.
             var exitCode = app.Execute(args);
+
+            if (Debugger.IsAttached)
+            {
+                Console.Write("调试模式：按任意键结束……");
+                Console.ReadKey();
+            }
+
             return exitCode;
         }
     }
