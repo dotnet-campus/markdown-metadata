@@ -31,7 +31,10 @@ namespace Mdmeta.Tasks.Walterlv
 
         [YamlMember(Alias = "description", ApplyNamingConventions = false)]
         public string Description { get; set; }
-        
+
+        [YamlMember(Alias = "position", ApplyNamingConventions = false)]
+        public string Position { get; set; }
+
         public string CurrentVersion => string.IsNullOrWhiteSpace(Version) ? Current : Version;
 
         [YamlMember(Alias = "current", ApplyNamingConventions = false)]
