@@ -41,7 +41,7 @@ namespace Mdmeta.Tasks.Walterlv
             text = UploadLocalImages(text, ImageBasePath).Output("[1] 已上传图片 {0} / {1} 张。", "[1] 无需上传图片。");
             text = ReplaceToc(text).Output("[2] 已替换目录为 TOC。", "[2] 无需替换目录。");
             text = ReplaceSelfSites(text, SiteUrl).Output("[3] 已替换 {0} / {1} 个博客路径。", "[3] 无需替换博客路径。");
-            text = AppendLicense(text, license).Output("[4] 已添加知识共享协议", "[4] 无需添加知识共享协议。");
+            text = AppendLicense(text, license).Output("[4] 已添加知识共享许可协议", "[4] 无需添加知识共享许可协议。");
 
             if (text != originalText)
             {
