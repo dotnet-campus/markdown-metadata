@@ -44,7 +44,7 @@ namespace Mdmeta.Tasks.Walterlv
             return 0;
         }
 
-        private static void ReplaceWithExternalResources(string markdownFile, string siteUrl)
+        private static (int replacedCount, int totalCount) ReplaceWithExternalResources(string markdownFile, string siteUrl)
         {
             var file = new FileInfo(markdownFile);
             var originalText = File.ReadAllText(file.FullName, Encoding.UTF8);
@@ -60,7 +60,7 @@ namespace Mdmeta.Tasks.Walterlv
 
             var imageRegex = new Regex(@"\[.+\]\(/post/[\w\-\.]+\)");
             var matches = imageRegex.Matches(text);
-            int count = 0;
+            var count = 0;
             foreach (Match match in matches)
             {
                 text = text.Replace(
@@ -82,6 +82,8 @@ namespace Mdmeta.Tasks.Walterlv
             {
                 File.WriteAllText(markdownFile, text, Encoding.UTF8);
             }
+
+            return (count, count);
         }
     }
 }
