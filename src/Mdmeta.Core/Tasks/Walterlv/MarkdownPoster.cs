@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using static Mdmeta.Tasks.Walterlv.MdmetaUtils;
 
@@ -8,17 +7,15 @@ namespace Mdmeta.Tasks.Walterlv
 {
     public class MarkdownPoster
     {
-        public static (int uploadedCount, int totalCount) UploadLocalImages(string markdownFile, string imageBasePath)
+        public static (string newText, int uploadedCount, int totalCount) UploadLocalImages(
+            string originalText, string imageBasePath)
         {
             var uploadCount = 0;
-            var file = new FileInfo(markdownFile);
-
-            var originalText = File.ReadAllText(file.FullName, Encoding.UTF8);
             var text = originalText;
             //                           |  非 <!-- 开头 |  取 ！[ ] 部分  |      取 ( ) 部分
             var imageRegex = new Regex(@"(?<!\<\!\-\-\s?)!\[(?<name>.+)\]\((?<path>/static/posts/[\d-]+\.png)\)");
             var matches = imageRegex.Matches(text);
-            int count = 0;
+            var count = 0;
             foreach (Match match in matches)
             {
                 var name = match.Groups["name"].Value;
@@ -65,12 +62,7 @@ namespace Mdmeta.Tasks.Walterlv
                 count++;
             }
 
-            if (text != originalText)
-            {
-                File.WriteAllText(file.FullName, text, Encoding.UTF8);
-            }
-
-            return (uploadCount, count);
+            return (text, uploadCount, count);
         }
     }
 }

@@ -22,7 +22,8 @@ namespace Mdmeta.Tasks.Walterlv
 
         public override int Run()
         {
-            if (!File.Exists(FileName))
+            var fileName = Path.GetFullPath(FileName);
+            if (!File.Exists(fileName))
             {
                 OutputError($"文件 {FileName} 不存在。");
                 return 4;
@@ -30,29 +31,35 @@ namespace Mdmeta.Tasks.Walterlv
 
             Console.WriteLine($"将 {FileName} 转换为 CSDN 格式：");
 
-            UploadLocalImages(FileName, ImageBasePath).Output("已上传图片 {0} / {1} 张。", "无需上传图片。");
-            ReplaceWithExternalResources(FileName, SiteUrl);
+            var originalText = File.ReadAllText(fileName);
+            var text = originalText;
+
+            text = UploadLocalImages(text, ImageBasePath).Output("已上传图片 {0} / {1} 张。", "无需上传图片。");
+            text = ReplaceToc(text).Output("已替换目录为 TOC。", "无需替换目录。");
+            text = ReplaceSelfSites(text, SiteUrl).Output("已替换 {0} 个博客路径。", "无需替换博客路径。");
+
+            if (text != originalText)
+            {
+                File.WriteAllText(fileName, text, Encoding.UTF8);
+            }
 
             return 0;
         }
 
-        private static (int replacedCount, int totalCount) ReplaceWithExternalResources(string markdownFile, string siteUrl)
+        private static (string newText, int replacedCount, int totalCount) ReplaceToc(
+            string originalText)
         {
-            var file = new FileInfo(markdownFile);
-            var originalText = File.ReadAllText(file.FullName, Encoding.UTF8);
             var text = originalText.Replace(@"<div id=""toc""></div>", "@[TOC](本文内容)");
-            if (text == originalText)
-            {
-                Console.WriteLine("无需替换目录。");
-            }
-            else
-            {
-                OutputOn("已替换目录。", ConsoleColor.Green);
-            }
+            return (text, 1, 1);
+        }
 
+        private static (string newText, int replacedCount, int totalCount) ReplaceSelfSites(
+            string text, string siteUrl)
+        {
             var imageRegex = new Regex(@"\[.+\]\(/post/[\w\-\.]+\)");
             var matches = imageRegex.Matches(text);
             var count = 0;
+
             foreach (Match match in matches)
             {
                 text = text.Replace(
@@ -61,21 +68,7 @@ namespace Mdmeta.Tasks.Walterlv
                 count++;
             }
 
-            if (count == 0)
-            {
-                Console.WriteLine($"无需替换博客路径。");
-            }
-            else
-            {
-                OutputOn($"已替换 {count} 个博客路径。", ConsoleColor.Green);
-            }
-
-            if (text != originalText)
-            {
-                File.WriteAllText(markdownFile, text, Encoding.UTF8);
-            }
-
-            return (count, count);
+            return (text, count, count);
         }
     }
 }
