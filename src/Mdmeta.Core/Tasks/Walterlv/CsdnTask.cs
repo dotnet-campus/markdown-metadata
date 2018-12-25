@@ -54,9 +54,18 @@ namespace Mdmeta.Tasks.Walterlv
         private static (string newText, int replacedCount, int totalCount) ReplaceToc(
             string originalText)
         {
-            var text = originalText.Replace(@"<div id=""toc""></div>", "@[TOC](本文内容)");
-            var count = text == originalText ? 0 : 1;
-            return (text, count, 1);
+            if (originalText.Contains(@"<div id=""toc""></div>"))
+            {
+                var text = originalText.Replace(@"<div id=""toc""></div>", "@[TOC](本文内容)");
+                return (text, 1, 1);
+            }
+
+            if (originalText.Contains(@"@[TOC](本文内容)"))
+            {
+                return (originalText, 0, 1);
+            }
+
+            return (originalText, 0, 0);
         }
 
         private static (string newText, int replacedCount, int totalCount) ReplaceSelfSites(
