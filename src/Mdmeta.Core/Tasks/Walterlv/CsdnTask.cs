@@ -20,6 +20,9 @@ namespace Mdmeta.Tasks.Walterlv
         [CommandOption("-s|--site-url", Description = "相对路径的博客需要添加的网址。")]
         public string SiteUrl { get; set; }
 
+        [CommandOption("-l|--license-file", Description = "知识共享协议的 Markdown 文件路径。")]
+        public string LicenseFile { get; set; }
+
         public override int Run()
         {
             var fileName = Path.GetFullPath(FileName);
@@ -32,11 +35,13 @@ namespace Mdmeta.Tasks.Walterlv
             Console.WriteLine($"将 {FileName} 转换为 CSDN 格式：");
 
             var originalText = File.ReadAllText(fileName);
+            var license = File.ReadAllText(LicenseFile);
             var text = originalText;
 
             text = UploadLocalImages(text, ImageBasePath).Output("已上传图片 {0} / {1} 张。", "无需上传图片。");
             text = ReplaceToc(text).Output("已替换目录为 TOC。", "无需替换目录。");
-            text = ReplaceSelfSites(text, SiteUrl).Output("已替换 {0} 个博客路径。", "无需替换博客路径。");
+            text = ReplaceSelfSites(text, SiteUrl).Output("已替换 {0} / {1} 个博客路径。", "无需替换博客路径。");
+            text = AppendLicense(text, license).Output("已添加知识共享协议", "无需添加知识共享协议。");
 
             if (text != originalText)
             {
@@ -50,7 +55,8 @@ namespace Mdmeta.Tasks.Walterlv
             string originalText)
         {
             var text = originalText.Replace(@"<div id=""toc""></div>", "@[TOC](本文内容)");
-            return (text, 1, 1);
+            var count = text == originalText ? 0 : 1;
+            return (text, count, 1);
         }
 
         private static (string newText, int replacedCount, int totalCount) ReplaceSelfSites(
@@ -69,6 +75,20 @@ namespace Mdmeta.Tasks.Walterlv
             }
 
             return (text, count, count);
+        }
+
+        private static (string newText, int replacedCount, int totalCount) AppendLicense(
+            string originalText, string license)
+        {
+            if (originalText.Contains("知识共享协议"))
+            {
+                return (originalText, 0, 1);
+            }
+
+            var text = $@"{originalText}
+{license}
+";
+            return (text, 1, 1);
         }
     }
 }
