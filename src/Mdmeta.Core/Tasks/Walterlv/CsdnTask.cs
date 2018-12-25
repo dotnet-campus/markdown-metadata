@@ -30,15 +30,7 @@ namespace Mdmeta.Tasks.Walterlv
 
             Console.WriteLine($"将 {FileName} 转换为 CSDN 格式：");
 
-            var (uploadedCount, totalCount) = UploadLocalImages(FileName, ImageBasePath);
-            if (uploadedCount == 0)
-            {
-                Console.WriteLine("无需上传图片。");
-            }
-            else
-            {
-                OutputOn($"已上传图片 {uploadedCount} / {totalCount} 张。", ConsoleColor.Green);
-            }
+            UploadLocalImages(FileName, ImageBasePath).Output("已上传图片 {0} / {1} 张。", "无需上传图片。");
             ReplaceWithExternalResources(FileName, SiteUrl);
 
             return 0;
