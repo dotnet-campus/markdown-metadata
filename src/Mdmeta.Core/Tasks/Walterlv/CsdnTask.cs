@@ -38,10 +38,10 @@ namespace Mdmeta.Tasks.Walterlv
             var license = File.ReadAllText(LicenseFile);
             var text = originalText;
 
-            text = UploadLocalImages(text, ImageBasePath).Output("已上传图片 {0} / {1} 张。", "无需上传图片。");
-            text = ReplaceToc(text).Output("已替换目录为 TOC。", "无需替换目录。");
-            text = ReplaceSelfSites(text, SiteUrl).Output("已替换 {0} / {1} 个博客路径。", "无需替换博客路径。");
-            text = AppendLicense(text, license).Output("已添加知识共享协议", "无需添加知识共享协议。");
+            text = UploadLocalImages(text, ImageBasePath).Output("[1] 已上传图片 {0} / {1} 张。", "[1] 无需上传图片。");
+            text = ReplaceToc(text).Output("[2] 已替换目录为 TOC。", "[2] 无需替换目录。");
+            text = ReplaceSelfSites(text, SiteUrl).Output("[3] 已替换 {0} / {1} 个博客路径。", "[3] 无需替换博客路径。");
+            text = AppendLicense(text, license).Output("[4] 已添加知识共享协议", "[4] 无需添加知识共享协议。");
 
             if (text != originalText)
             {
@@ -80,14 +80,12 @@ namespace Mdmeta.Tasks.Walterlv
         private static (string newText, int replacedCount, int totalCount) AppendLicense(
             string originalText, string license)
         {
-            if (originalText.Contains("知识共享协议"))
+            if (originalText.Contains("知识共享许可协议"))
             {
                 return (originalText, 0, 1);
             }
 
-            var text = $@"{originalText}
-{license}
-";
+            var text = $@"{originalText}{license}";
             return (text, 1, 1);
         }
     }
