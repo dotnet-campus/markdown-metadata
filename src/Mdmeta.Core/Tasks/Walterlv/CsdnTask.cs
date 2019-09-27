@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Mdmeta.Core;
 using static Mdmeta.Tasks.Walterlv.MdmetaUtils;
 using static Mdmeta.Tasks.Walterlv.MarkdownPoster;
+using System.Diagnostics;
 
 namespace Mdmeta.Tasks.Walterlv
 {
@@ -16,6 +17,9 @@ namespace Mdmeta.Tasks.Walterlv
 
         [CommandOption("-b|--image-base-path", Description = "图片在本地文件系统中的基地址。")]
         public string ImageBasePath { get; set; }
+
+        [CommandOption("-i|--image-existed-url", Description = "如果指定将此图片 url 换成绝对路径，那么将不会上传本地路径，而是拼接路径。")]
+        public string ImageExistedUrl { get; set; }
 
         [CommandOption("-s|--site-url", Description = "相对路径的博客需要添加的网址。")]
         public string SiteUrl { get; set; }
@@ -38,7 +42,14 @@ namespace Mdmeta.Tasks.Walterlv
             var license = File.ReadAllText(LicenseFile);
             var text = originalText;
 
-            text = UploadLocalImages(text, ImageBasePath).Output("[1] 已上传图片 {0} / {1} 张。", "[1] 无需上传图片。");
+            if (!string.IsNullOrWhiteSpace(ImageExistedUrl))
+            {
+                text = ReplaceLocalImagesToUrl(text, ImageExistedUrl).Output("[1] 已替换图片 {0} / {1} 张。", "[1] 无需上传图片。");
+            }
+            else
+            {
+                text = UploadLocalImages(text, ImageBasePath).Output("[1] 已上传图片 {0} / {1} 张。", "[1] 无需上传图片。");
+            }
             text = ReplaceToc(text).Output("[2] 已替换目录为 TOC。", "[2] 无需替换目录。");
             text = ReplaceSelfSites(text, SiteUrl).Output("[3] 已替换 {0} / {1} 个博客路径。", "[3] 无需替换博客路径。");
             text = AppendLicense(text, license).Output("[4] 已添加知识共享许可协议", "[4] 无需添加知识共享许可协议。");

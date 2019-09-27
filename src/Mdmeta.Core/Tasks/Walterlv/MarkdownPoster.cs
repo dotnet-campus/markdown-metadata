@@ -64,5 +64,36 @@ namespace Mdmeta.Tasks.Walterlv
 
             return (text, uploadCount, count);
         }
+
+        public static (string newText, int uploadedCount, int totalCount) ReplaceLocalImagesToUrl(
+            string originalText, string imageExistedUrl)
+        {
+            var uploadCount = 0;
+            var text = originalText;
+            //                           |  非 <!-- 开头 |  取 ！[ ] 部分  |      取 ( ) 部分
+            var imageRegex = new Regex(@"(?<!\<\!\-\-\s?)!\[(?<name>.+)\]\((?<path>/static/posts/[\d-]+\.png)\)");
+            var matches = imageRegex.Matches(text);
+            var count = 0;
+            foreach (Match match in matches)
+            {
+                var name = match.Groups["name"].Value;
+                var path = match.Groups["path"].Value;
+
+                Console.Write(
+                    $"{count.ToString().PadLeft(2, ' ')}. " +
+                    $"{name} ");
+
+                Console.CursorLeft = 4;
+                var replacedUrl = imageExistedUrl + path;
+                Console.WriteLine($"已替换：{replacedUrl} 。");
+                uploadCount++;
+
+                text = text.Replace(match.Value, $@"{match.Value.Replace(path, replacedUrl)}");
+
+                count++;
+            }
+
+            return (text, uploadCount, count);
+        }
     }
 }
