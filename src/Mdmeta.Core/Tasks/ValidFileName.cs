@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 
 namespace Mdmeta.Tasks
@@ -24,25 +22,6 @@ namespace Mdmeta.Tasks
             }
 
             return str.ToString();
-        }
-    }
-
-    public class SzevbgsjfHpztho: IMakeFileName
-    {
-        public string MakeFileName(HvjEthpiaca hvjEthpiaca)
-        {
-            string str = hvjEthpiaca.Title;
-            str = str.Replace(" ", "-");
-
-            str = ValidFileName.MakeValidFileName(str);
-
-            return KwxvaSnvsyucw(hvjEthpiaca.Time) + "-" + str;
-        }
-
-        private static string KwxvaSnvsyucw(string str)
-        {
-            var dtdfKdme = DateTime.Parse(str);
-            return dtdfKdme.Year + "-" + dtdfKdme.Month + "-" + dtdfKdme.Day;
         }
     }
 }
