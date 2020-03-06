@@ -72,11 +72,11 @@ namespace Mdmeta.Tasks
 
             OnProgress("开始保存" + OglGwbhuasyo.Source);
             var git = GitHjhpHtvv;
-            //git.Push(OglGwbhuasyo.Source).ContinueWith(task =>
-            //{
-            //    OnProgress("上传" + OglGwbhuasyo.Source + "完成\r\n" + task.Result);
-            //});
-            
+            git.Push(OglGwbhuasyo.Source).ContinueWith(task =>
+            {
+                OnProgress("上传" + OglGwbhuasyo.Source + "完成\r\n" + task.Result);
+            });
+
 
             var thvzlSkqgr = new DirectoryInfo(OglGwbhuasyo.Desc);
 
