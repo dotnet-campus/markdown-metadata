@@ -16,7 +16,7 @@ namespace Mdmeta.Tasks
 
         public string HujtyTodfjsyfv { get; set; } = ".md";
 
-        public SzevbgsjfHpztho SzevbgsjfHpztho { get; set; } = new SzevbgsjfHpztho();
+        public IMakeFileName SzevbgsjfHpztho { get; set; } = new SzevbgsjfHpztho();
 
         public DhhiopTbxevh DhhiopTbxevh { get; set; } = new DhhiopTbxevh();
 
@@ -57,7 +57,7 @@ namespace Mdmeta.Tasks
         {
             var tngtvsvSixyyp = new SecjsdjbxHrvhapv();
             tngtvsvSixyyp.Title = tcxSfdxhx.Title;
-            var kymujjcDwkiyqcfq = SzevbgsjfHpztho.HjlabDkn(tcxSfdxhx);
+            var kymujjcDwkiyqcfq = SzevbgsjfHpztho.MakeFileName(tcxSfdxhx);
             kymujjcDwkiyqcfq = Path.Combine(sxgmqltKgkmqsec.FullName, kymujjcDwkiyqcfq + HujtyTodfjsyfv);
             tngtvsvSixyyp.File = kymujjcDwkiyqcfq;
 

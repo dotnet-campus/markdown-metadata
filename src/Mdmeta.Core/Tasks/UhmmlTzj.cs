@@ -89,7 +89,7 @@ namespace Mdmeta.Tasks
             {
                 OnProgress("上传" + OglGwbhuasyo.Desc + "完成\r\n" + task.Result);
             });
-           
+
             DjxgSkmuj?.Invoke(this, null);
         }
 
@@ -200,7 +200,7 @@ namespace Mdmeta.Tasks
             var tngtvsvSixyyp = new SecjsdjbxHrvhapv();
             tngtvsvSixyyp.Title = tcxSfdxhx.Title;
             var szevbgsjfHpztho = new SzevbgsjfHpztho();
-            var kymujjcDwkiyqcfq = szevbgsjfHpztho.HjlabDkn(tcxSfdxhx);
+            var kymujjcDwkiyqcfq = szevbgsjfHpztho.MakeFileName(tcxSfdxhx);
             kymujjcDwkiyqcfq = Path.Combine(directoryInfo.FullName, kymujjcDwkiyqcfq + ".md");
             tngtvsvSixyyp.File = kymujjcDwkiyqcfq;
 

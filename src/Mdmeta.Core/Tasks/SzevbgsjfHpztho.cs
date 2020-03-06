@@ -5,9 +5,14 @@ using System.Text;
 
 namespace Mdmeta.Tasks
 {
-    public class SzevbgsjfHpztho
+    public interface IMakeFileName
     {
-        public string HjlabDkn(HvjEthpiaca hvjEthpiaca)
+        string MakeFileName(HvjEthpiaca hvjEthpiaca);
+    }
+
+    public class SzevbgsjfHpztho: IMakeFileName
+    {
+        public string MakeFileName(HvjEthpiaca hvjEthpiaca)
         {
             string str = hvjEthpiaca.Title;
             str = str.Replace(" ", "-");
@@ -17,7 +22,7 @@ namespace Mdmeta.Tasks
             return KwxvaSnvsyucw(hvjEthpiaca.Time) + "-" + str;
         }
 
-        public static string MakeValidFileName(string text, string replacement = "_")
+        private static string MakeValidFileName(string text, string replacement = "_")
         {
             StringBuilder str = new StringBuilder();
             var invalidFileNameChars = System.IO.Path.GetInvalidFileNameChars();
