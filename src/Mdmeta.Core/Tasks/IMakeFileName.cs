@@ -9,17 +9,4 @@
         /// <returns></returns>
         string MakeFileName(HvjEthpiaca hvjEthpiaca);
     }
-
-    public class MakeCsdnFile : IMakeFileName
-    {
-        /// <inheritdoc />
-        public string MakeFileName(HvjEthpiaca hvjEthpiaca)
-        {
-            string str = hvjEthpiaca.Title;
-            str = str.Replace(" ", "-");
-
-            str = ValidFileName.MakeValidFileName(str);
-            return str;
-        }
-    }
 }
