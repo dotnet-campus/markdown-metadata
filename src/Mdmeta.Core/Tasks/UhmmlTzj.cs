@@ -93,7 +93,7 @@ namespace Mdmeta.Tasks
             DjxgSkmuj?.Invoke(this, null);
         }
 
-        private event EventHandler DjxgSkmuj;
+        public event EventHandler DjxgSkmuj;
 
         public event EventHandler<string> Progress;
 
