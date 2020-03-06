@@ -8,8 +8,9 @@ namespace Mdmeta.Tasks.Walterlv
 {
     public class MarkdownPoster
     {
-        public static void UploadLocalImages(string markdownFile, string imageBasePath)
+        public static (int uploadedCount, int totalCount) UploadLocalImages(string markdownFile, string imageBasePath)
         {
+            var uploadCount = 0;
             var file = new FileInfo(markdownFile);
 
             var originalText = File.ReadAllText(file.FullName, Encoding.UTF8);
@@ -42,6 +43,7 @@ namespace Mdmeta.Tasks.Walterlv
                     Console.CursorLeft = 4;
                     var uploadedUrl = server.UploadAsync(localImagePath).Result.Url;
                     Console.WriteLine($"{path} 已上传至 {uploadedUrl} 。");
+                    uploadCount++;
 
                     text = text.Replace(match.Value, $@"<!-- {match.Value} -->
 {match.Value.Replace(path, uploadedUrl)}");
@@ -67,6 +69,8 @@ namespace Mdmeta.Tasks.Walterlv
             {
                 File.WriteAllText(file.FullName, text, Encoding.UTF8);
             }
+
+            return (uploadCount, count);
         }
     }
 }
