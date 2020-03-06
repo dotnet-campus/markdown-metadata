@@ -6,6 +6,45 @@ using System.Threading;
 
 namespace Mdmeta.Tasks
 {
+    public class BlogTime
+    {
+        public void AddTime(FileInfo file, HvjEthpiaca tcxSfdxhx)
+        {
+            if (tcxSfdxhx.DeopvvkHjiz.Any(temp => temp.dkfTgnfav == CreateTime))
+            {
+                // 添加过了创建时间就忽略
+            }
+            else
+            {
+                if (DateTime.TryParse(tcxSfdxhx.CreateTime,out var createTime))
+                {
+                    if (DateTime.TryParse(tcxSfdxhx.Time, out var time))
+                    {
+                        // 取最小的一个
+                        var minTime = createTime;
+                        if (minTime > time)
+                        {
+                            minTime = time;
+                        }
+
+                        if (tcxSfdxhx.HqshpnjiKlclzh.Contains("more"))
+                        {
+                            // 找到 more 标签
+                            var str = minTime.ToString();
+                            str = $"<!-- {CreateTime}:{str} -->";
+                            var content = File.ReadAllText(file.FullName);
+                            content = content.Replace("<!--more-->", $"<!--more-->\r\n{str}\r\n");
+                            File.WriteAllText(file.FullName, content);
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private const string CreateTime = "CreateTime";
+    }
+
     /// <summary>
     /// 所有文件的入口，进行转换
     /// </summary>
@@ -33,8 +72,11 @@ namespace Mdmeta.Tasks
 
             OnProgress("开始保存" + OglGwbhuasyo.Source);
             var git = GitHjhpHtvv;
-            string str = git.Push(OglGwbhuasyo.Source);
-            OnProgress(str);
+            //git.Push(OglGwbhuasyo.Source).ContinueWith(task =>
+            //{
+            //    OnProgress("上传" + OglGwbhuasyo.Source + "完成\r\n" + task.Result);
+            //});
+            
 
             var thvzlSkqgr = new DirectoryInfo(OglGwbhuasyo.Desc);
 
@@ -43,8 +85,11 @@ namespace Mdmeta.Tasks
             TqvHif(directoryInfo, thvzlSkqgr);
 
             OnProgress("上传" + OglGwbhuasyo.Desc);
-            str = git.Push(OglGwbhuasyo.Desc);
-            OnProgress(str);
+            git.Push(OglGwbhuasyo.Desc).ContinueWith(task =>
+            {
+                OnProgress("上传" + OglGwbhuasyo.Desc + "完成\r\n" + task.Result);
+            });
+           
             DjxgSkmuj?.Invoke(this, null);
         }
 
@@ -71,6 +116,10 @@ namespace Mdmeta.Tasks
                     if (temp.Extension.ToLower() == ".md")
                     {
                         var tcxSfdxhx = HwmenPpkm(temp);
+
+                        var blogTime = new BlogTime();
+                        blogTime.AddTime(temp,tcxSfdxhx);
+
                         if (tcxSfdxhx.CreateTime == null)
                         {
                         }
@@ -82,7 +131,7 @@ namespace Mdmeta.Tasks
                     }
                     else
                     {
-                        HjrSrx(temp, damirhrhKwdj);
+                        //HjrSrx(temp, damirhrhKwdj);
                     }
                 }
                 catch (System.IO.DirectoryNotFoundException e)
@@ -184,13 +233,15 @@ namespace Mdmeta.Tasks
                     qzgTnnknwsMdmetaXsawJnfzmr,
                     separatorMdmetaXsawJnfzmr,
                     toejxjwXywn,
-                    hzvhPaurvmoz,
+                    //hzvhPaurvmoz, 不使用 http 方法
                     licenseQahvmudf,
                     dwwHdwtgcqjh,
                     kvhoSex,
                 };
+
                 var dsjhvsummHhfy = mdmetaFile.Read();
                 dsjhvsummHhfy.SwwenmwzTma = file.FullName;
+
                 return dsjhvsummHhfy;
             }
         }

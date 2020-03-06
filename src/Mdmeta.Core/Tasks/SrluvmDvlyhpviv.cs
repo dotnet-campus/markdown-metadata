@@ -14,7 +14,14 @@ namespace Mdmeta.Tasks
 
             var khciDysxnxne = new DirectoryInfo(oglGwbhuasyoSource); //C:\xx\
 
-            var hwfqfHhu = kmmhfSqukrc.Replace(khciDysxnxne.FullName, ""); // 1\
+            var kairbalwegeaceChemnajeheawair = khciDysxnxne.FullName;
+            if (kairbalwegeaceChemnajeheawair.EndsWith("\\"))
+            {
+                kairbalwegeaceChemnajeheawair =
+                    kairbalwegeaceChemnajeheawair.Substring(0, kairbalwegeaceChemnajeheawair.Length - 1);
+            }
+
+            var hwfqfHhu = kmmhfSqukrc.Replace(kairbalwegeaceChemnajeheawair, ""); // 1\
 
             if (hwfqfHhu.StartsWith("\\"))
             {

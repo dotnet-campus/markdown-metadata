@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Mdmeta.Tasks
 {
     internal class SvlxbyeeDpqg : IHavfTreqbajzx
     {
-        public string Push(string folder)
+        public async Task<string> Push(string folder)
         {
             var git = new GitControl(folder);
             StringBuilder str = new StringBuilder();
             str.Append(git.Add() + "\r\n");
             str.Append(git.Commit() + "\r\n");
-            str.Append(git.Push() + "\r\n");
+            str.Append(await Task.Run(() => git.Push()) + "\r\n");
             return str.ToString();
         }
     }

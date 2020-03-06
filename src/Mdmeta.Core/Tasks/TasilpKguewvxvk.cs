@@ -135,6 +135,6 @@ namespace Mdmeta.Tasks
             KljfilDiuswev.Add(kyuzryTjt, kxsqTjfp);
         }
 
-        private Dictionary<HvjEthpiaca, string> KljfilDiuswev = new Dictionary<HvjEthpiaca, string>();
+        private readonly Dictionary<HvjEthpiaca, string> KljfilDiuswev = new Dictionary<HvjEthpiaca, string>();
     }
 }
