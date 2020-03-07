@@ -42,7 +42,7 @@ namespace Mdmeta.Tasks
             }
         }
 
-        private const string CreateTime = "CreateTime";
+        public const string CreateTime = "CreateTime";
     }
 
     /// <summary>

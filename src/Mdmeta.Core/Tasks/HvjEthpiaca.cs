@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Mdmeta.Tasks
 {
@@ -11,6 +13,41 @@ namespace Mdmeta.Tasks
         public string Text { get; set; }
 
         public string CreateTime { get; set; }
+
+        public DateTime GetCreateTime()
+        {
+            var parseFileCreateTime = DateTime.TryParse(CreateTime, out var fileCreateTime);
+            var (_, createTime) = DeopvvkHjiz.FirstOrDefault(temp=>temp.dkfTgnfav==BlogTime.CreateTime);
+            
+            var parseCreateTime = false;
+            DateTime time = DateTime.MinValue;
+            if (createTime != null)
+            {
+                parseCreateTime = DateTime.TryParse(createTime, out time);
+            }
+
+            if (parseCreateTime)
+            {
+                if (parseFileCreateTime)
+                {
+                    if (time > fileCreateTime)
+                    {
+                        time = fileCreateTime;
+                    }
+
+                    return time;
+                }
+
+                return time;
+            }
+            else if (parseFileCreateTime)
+            {
+                return fileCreateTime;
+            }
+
+            return DateTime.MinValue;
+        }
+
 
         public string Composer { get; set; }
 

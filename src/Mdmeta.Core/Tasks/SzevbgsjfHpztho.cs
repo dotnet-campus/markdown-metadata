@@ -12,13 +12,12 @@ namespace Mdmeta.Tasks
 
             str = ValidFileName.MakeValidFileName(str);
 
-            return KwxvaSnvsyucw(hvjEthpiaca.Time) + "-" + str;
+            return KwxvaSnvsyucw(hvjEthpiaca.GetCreateTime()) + "-" + str;
         }
 
-        private static string KwxvaSnvsyucw(string str)
+        private static string KwxvaSnvsyucw(DateTime createTime)
         {
-            var dtdfKdme = DateTime.Parse(str);
-            return dtdfKdme.Year + "-" + dtdfKdme.Month + "-" + dtdfKdme.Day;
+            return createTime.Year + "-" + createTime.Month.ToString("00") + "-" + createTime.Day.ToString("00");
         }
     }
 }
