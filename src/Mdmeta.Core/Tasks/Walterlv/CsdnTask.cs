@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Mdmeta.Core;
 using static Mdmeta.Tasks.Walterlv.MdmetaUtils;
 using static Mdmeta.Tasks.Walterlv.MarkdownPoster;
+using System.Diagnostics;
 
 namespace Mdmeta.Tasks.Walterlv
 {
@@ -17,12 +18,19 @@ namespace Mdmeta.Tasks.Walterlv
         [CommandOption("-b|--image-base-path", Description = "图片在本地文件系统中的基地址。")]
         public string ImageBasePath { get; set; }
 
+        [CommandOption("-i|--image-existed-url", Description = "如果指定将此图片 url 换成绝对路径，那么将不会上传本地路径，而是拼接路径。")]
+        public string ImageExistedUrl { get; set; }
+
         [CommandOption("-s|--site-url", Description = "相对路径的博客需要添加的网址。")]
         public string SiteUrl { get; set; }
 
+        [CommandOption("-l|--license-file", Description = "知识共享协议的 Markdown 文件路径。")]
+        public string LicenseFile { get; set; }
+
         public override int Run()
         {
-            if (!File.Exists(FileName))
+            var fileName = Path.GetFullPath(FileName);
+            if (!File.Exists(fileName))
             {
                 OutputError($"文件 {FileName} 不存在。");
                 return 4;
@@ -30,37 +38,54 @@ namespace Mdmeta.Tasks.Walterlv
 
             Console.WriteLine($"将 {FileName} 转换为 CSDN 格式：");
 
-            var (uploadedCount, totalCount) = UploadLocalImages(FileName, ImageBasePath);
-            if (uploadedCount == 0)
+            var originalText = File.ReadAllText(fileName);
+            var license = File.ReadAllText(LicenseFile);
+            var text = originalText;
+
+            if (!string.IsNullOrWhiteSpace(ImageExistedUrl))
             {
-                Console.WriteLine("无需上传图片。");
+                text = ReplaceLocalImagesToUrl(text, ImageExistedUrl).Output("[1] 已替换图片 {0} / {1} 张。", "[1] 无需上传图片。");
             }
             else
             {
-                OutputOn($"已上传图片 {uploadedCount} / {totalCount} 张。", ConsoleColor.Green);
+                text = UploadLocalImages(text, ImageBasePath).Output("[1] 已上传图片 {0} / {1} 张。", "[1] 无需上传图片。");
             }
-            ReplaceWithExternalResources(FileName, SiteUrl);
+            text = ReplaceToc(text).Output("[2] 已替换目录为 TOC。", "[2] 无需替换目录。");
+            text = ReplaceSelfSites(text, SiteUrl).Output("[3] 已替换 {0} / {1} 个博客路径。", "[3] 无需替换博客路径。");
+            text = AppendLicense(text, license).Output("[4] 已添加知识共享许可协议", "[4] 无需添加知识共享许可协议。");
+
+            if (text != originalText)
+            {
+                File.WriteAllText(fileName, text, Encoding.UTF8);
+            }
 
             return 0;
         }
 
-        private static void ReplaceWithExternalResources(string markdownFile, string siteUrl)
+        private static (string newText, int replacedCount, int totalCount) ReplaceToc(
+            string originalText)
         {
-            var file = new FileInfo(markdownFile);
-            var originalText = File.ReadAllText(file.FullName, Encoding.UTF8);
-            var text = originalText.Replace(@"<div id=""toc""></div>", "@[TOC](本文内容)");
-            if (text == originalText)
+            if (originalText.Contains(@"<div id=""toc""></div>"))
             {
-                Console.WriteLine("无需替换目录。");
-            }
-            else
-            {
-                OutputOn("已替换目录。", ConsoleColor.Green);
+                var text = originalText.Replace(@"<div id=""toc""></div>", "@[TOC](本文内容)");
+                return (text, 1, 1);
             }
 
+            if (originalText.Contains(@"@[TOC](本文内容)"))
+            {
+                return (originalText, 0, 1);
+            }
+
+            return (originalText, 0, 0);
+        }
+
+        private static (string newText, int replacedCount, int totalCount) ReplaceSelfSites(
+            string text, string siteUrl)
+        {
             var imageRegex = new Regex(@"\[.+\]\(/post/[\w\-\.]+\)");
             var matches = imageRegex.Matches(text);
-            int count = 0;
+            var count = 0;
+
             foreach (Match match in matches)
             {
                 text = text.Replace(
@@ -69,19 +94,19 @@ namespace Mdmeta.Tasks.Walterlv
                 count++;
             }
 
-            if (count == 0)
+            return (text, count, count);
+        }
+
+        private static (string newText, int replacedCount, int totalCount) AppendLicense(
+            string originalText, string license)
+        {
+            if (originalText.Contains("知识共享许可协议"))
             {
-                Console.WriteLine($"无需替换博客路径。");
-            }
-            else
-            {
-                OutputOn($"已替换 {count} 个博客路径。", ConsoleColor.Green);
+                return (originalText, 0, 1);
             }
 
-            if (text != originalText)
-            {
-                File.WriteAllText(markdownFile, text, Encoding.UTF8);
-            }
+            var text = $@"{originalText}{license}";
+            return (text, 1, 1);
         }
     }
 }
