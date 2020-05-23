@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Walterlv.BlogTransformer.Utils
+namespace Walterlv.BlogTransformer.Blogs
 {
     public static class MdmetaUtils
     {

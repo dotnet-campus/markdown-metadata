@@ -8,7 +8,7 @@ using dotnetCampus.Cli;
 using Walterlv.BlogTransformer.Blogs;
 using Walterlv.BlogTransformer.Core;
 
-using static Walterlv.BlogTransformer.Utils.MdmetaUtils;
+using static Walterlv.BlogTransformer.Blogs.MdmetaUtils;
 
 namespace Walterlv.BlogTransformer.Tasks
 {
