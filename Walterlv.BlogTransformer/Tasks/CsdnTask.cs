@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 
 using dotnetCampus.Cli;
@@ -10,6 +9,9 @@ using Walterlv.BlogTransformer.Core;
 using static Walterlv.BlogTransformer.Blogs.MdmetaUtils;
 using static Walterlv.BlogTransformer.Blogs.MarkdownPoster;
 using Walterlv.BlogTransformer.Utils;
+using System.Collections.Generic;
+using System.Linq;
+using Walterlv.BlogTransformer.Blogs;
 
 namespace Mdmeta.Tasks.Walterlv
 {
@@ -22,8 +24,14 @@ namespace Mdmeta.Tasks.Walterlv
         /// <summary>
         /// 要转换格式的文件的完全限定路径。
         /// </summary>
-        [Option("File")]
-        public string FileName { get; set; }
+        [Value(0), Option('f', "Files")]
+        public IList<string> Files { get; set; }
+
+        /// <summary>
+        /// 转换后的文件需要放到这个文件夹。
+        /// </summary>
+        [Option('o', "OutputDirectory")]
+        public string OutputDirectory { get; set; }
 
         /// <summary>
         /// 图片在本地文件系统中的基地址。
@@ -51,14 +59,40 @@ namespace Mdmeta.Tasks.Walterlv
 
         public override void Run()
         {
-            var fileName = Path.GetFullPath(FileName);
-            if (!File.Exists(fileName))
+            if (Files is null)
             {
-                OutputError($"文件 {FileName} 不存在。");
-                return;
+                throw new ArgumentException("必须指定要转换的文件。", nameof(Files));
             }
 
-            Console.WriteLine($"将 {FileName} 转换为 CSDN 格式：");
+            if (OutputDirectory is null)
+            {
+                throw new ArgumentException("必须指定转换的目标文件。", nameof(OutputDirectory));
+            }
+
+            var outputDirectory = new DirectoryInfo(OutputDirectory);
+            foreach (var file in Files.Select(x=> new FileInfo(Path.GetFullPath(x))))
+            {
+                var (title, text) = TransformToCsdn(file.FullName);
+                if (text is null || string.IsNullOrWhiteSpace(text))
+                {
+                    continue;
+                }
+
+                title = title?.Replace('/', ' ')?.Replace('\\', ' ');
+                var newFileName = Path.Combine(outputDirectory.FullName, $"{title}.md");
+                File.WriteAllText(newFileName, text);
+            }
+        }
+
+        public (string? title, string? content) TransformToCsdn(string fileName)
+        {
+            if (!File.Exists(fileName))
+            {
+                OutputError($"文件 {fileName} 不存在。");
+                return (null, null);
+            }
+
+            Console.WriteLine($"将 {fileName} 转换为 CSDN 格式：");
 
             var originalText = File.ReadAllText(fileName);
             var license = File.ReadAllText(LicenseFile);
@@ -76,10 +110,10 @@ namespace Mdmeta.Tasks.Walterlv
             text = ReplaceSelfSites(text, SiteUrl).Output("[3] 已替换 {0} / {1} 个博客路径。", "[3] 无需替换博客路径。");
             text = AppendLicense(text, license).Output("[4] 已添加知识共享许可协议", "[4] 无需添加知识共享许可协议。");
 
-            if (text != originalText)
-            {
-                File.WriteAllText(fileName, text, Encoding.UTF8);
-            }
+            var frontMatter = PostMeta.FromFile(new FileInfo(fileName));
+            var a1 = text.Substring(3);
+            var a2 = a1.Substring(a1.IndexOf("---") + 4);
+            return (frontMatter.Title, a2);
         }
 
         private static (string newText, int replacedCount, int totalCount) ReplaceToc(
