@@ -17,7 +17,7 @@ namespace Mdmeta.Tasks
                 str = str.Trim();
             }
 
-            str = ValidFileName.MakeValidFileName(str);
+            str = ValidFileName.MakeValidFileName(str, replacement: "");
             return str;
         }
     }
