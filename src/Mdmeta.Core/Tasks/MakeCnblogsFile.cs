@@ -12,6 +12,10 @@ namespace Mdmeta.Tasks
             {
                 str = hvjEthpiaca.Title;
             }
+            else
+            {
+                str = str.Trim();
+            }
 
             str = ValidFileName.MakeValidFileName(str);
             return str;
