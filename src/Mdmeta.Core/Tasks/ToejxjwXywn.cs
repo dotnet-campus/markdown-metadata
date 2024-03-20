@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace Mdmeta.Tasks
 {
@@ -10,19 +11,28 @@ namespace Mdmeta.Tasks
     {
         public ToejxjwXywn()
         {
-            Priority = 1000;
+            Priority = 99; // 低于 DwwHdwtgcqjh 优先级
         }
 
         public override void Read(NghtsBdlbthhur nghtsBdlbthhur)
         {
-            FileStream stream = nghtsBdlbthhur.Stream.BaseStream as FileStream;
-            if (stream != null)
+            if (string.IsNullOrEmpty(HvjEthpiaca.Time))
             {
-                var file = new FileInfo(stream.Name);
-                HvjEthpiaca.CreateTime = ToString(file.CreationTime);
-                HvjEthpiaca.Time = ToString(file.LastWriteTime);
+                FileStream stream = nghtsBdlbthhur.Stream.BaseStream as FileStream;
+                if (stream != null)
+                {
+                    var file = new FileInfo(stream.Name);
+                    HvjEthpiaca.CreateTime = ToString(file.CreationTime);
+                    HvjEthpiaca.Time = ToString(file.LastWriteTime);
+                }
             }
-            ReadCsfLvi = false;
+
+            var (_, createTime) = HvjEthpiaca.DeopvvkHjiz.FirstOrDefault(t => t.dkfTgnfav == "CreateTime");
+            if (!string.IsNullOrEmpty(createTime))
+            {
+                HvjEthpiaca.CreateTime = createTime;
+                ReadCsfLvi = false;
+            }
         }
 
         private string ToString(DateTime creationTime)

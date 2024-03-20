@@ -223,19 +223,20 @@ namespace Mdmeta.Tasks
                 var qzgTnnknwsMdmetaXsawJnfzmr = new QzgTnnknwsMdmetaXsawJnfzmr();
                 var hzvhPaurvmoz = new HzvhPaurvmoz();
                 var separatorMdmetaXsawJnfzmr = new SeparatorMdmetaXsawJnfzmr(new Excerpt(null, "<!--more-->"));
-                var toejxjwXywn = new ToejxjwXywn();
                 var licenseQahvmudf = new LicenseQahvmudf();
                 var dwwHdwtgcqjh = new DwwHdwtgcqjh();
+                var toejxjwXywn = new ToejxjwXywn();
                 var kvhoSex = new DsfuDewuwwhc();
 
                 mdmetaFile.MdmetaXsawJnfzmrs = new List<MdmetaXsawJnfzmr>()
                 {
                     qzgTnnknwsMdmetaXsawJnfzmr,
                     separatorMdmetaXsawJnfzmr,
-                    toejxjwXywn,
                     //hzvhPaurvmoz, 不使用 http 方法
                     licenseQahvmudf,
                     dwwHdwtgcqjh,
+                    // 在 dwwHdwtgcqjh 之后，才可以获取到创建时间
+                    toejxjwXywn,
                     kvhoSex,
                 };
 
