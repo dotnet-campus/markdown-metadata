@@ -174,7 +174,7 @@ namespace Mdmeta.Tasks
             {
                 OnProgress("开始删除文件");
                 directoryInfo.Delete(true);
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
             }
             catch (Exception e)
             {
