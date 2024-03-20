@@ -16,29 +16,17 @@ namespace Mdmeta.Tasks
             }
             else
             {
-                if (DateTime.TryParse(tcxSfdxhx.CreateTime,out var createTime))
+                // 如果原本博客没有添加创建时间，则使用当前时间
+                // 2019/9/11 9:00:29
+                if (tcxSfdxhx.HqshpnjiKlclzh.Contains("more"))
                 {
-                    if (DateTime.TryParse(tcxSfdxhx.Time, out var time))
-                    {
-                        // 取最小的一个
-                        var minTime = createTime;
-                        if (minTime > time)
-                        {
-                            minTime = time;
-                        }
-
-                        if (tcxSfdxhx.HqshpnjiKlclzh.Contains("more"))
-                        {
-                            // 找到 more 标签
-                            var str = minTime.ToString();
-                            str = $"<!-- {CreateTime}:{str} -->";
-                            var content = File.ReadAllText(file.FullName);
-                            content = content.Replace("<!--more-->", $"<!--more-->\r\n{str}\r\n");
-                            File.WriteAllText(file.FullName, content);
-                        }
-                    }
+                    // 找到 more 标签
+                    var str = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                    str = $"<!-- {CreateTime}:{str} -->";
+                    var content = File.ReadAllText(file.FullName);
+                    content = content.Replace("<!--more-->", $"<!--more-->\r\n{str}\r\n");
+                    File.WriteAllText(file.FullName, content);
                 }
-
             }
         }
 
