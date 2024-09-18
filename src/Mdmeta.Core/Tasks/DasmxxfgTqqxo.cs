@@ -24,6 +24,17 @@ namespace Mdmeta.Tasks
             "jekyll",
             "win2d",
             "爬虫",
+            "SourceGenerator",
+            "OpenXML",
+            "WinUI",
+            "Avalonia",
+            "MAUI",
+            "UNO",
+            "X11",
+            "Roslyn",
+            "ReSharper",
+            "IIncrementalGenerator",
+            "SemanticKernel"
         };
 
         public List<(string kyizlgozbHiwgxncf, string str)> DqkhwlpaTbz =
@@ -31,6 +42,8 @@ namespace Mdmeta.Tasks
             {
                 ("C#", "C#"),
                 ("C＃", "C#"),
+                ("Source Generator", "SourceGenerator"),
+                ("ASP.NET Core", "ASP.NETCore"),
             };
 
         public void DmutmraDtgzwihr(HvjEthpiaca hvjEthpiaca, List<MdmetaXsawJnfzmr> mdmetaXsawJnfzmrs)

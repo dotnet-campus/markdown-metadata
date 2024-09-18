@@ -18,7 +18,7 @@ namespace Mdmeta.Tasks
 
         public IMakeFileName SzevbgsjfHpztho { get; set; } = new SzevbgsjfHpztho();
 
-        public DhhiopTbxevh DhhiopTbxevh { get; set; } = new DhhiopTbxevh();
+        public IKalujabeenaWhawreredaqay DhhiopTbxevh { get; set; } = new DhhiopTbxevh();
 
         public ScksuqpknKgnrbrv(OglGwbhuasyo oglGwbhuasyo, HvjEthpiaca tcxSfdxhx)
         {
