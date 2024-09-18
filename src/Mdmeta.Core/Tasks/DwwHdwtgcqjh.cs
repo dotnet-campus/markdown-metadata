@@ -165,6 +165,8 @@ namespace Mdmeta.Tasks
 
         public void SgwerTthnogi(string dkfTgnfav, List<string> hvurSjsdt)
         {
+            HvjEthpiaca.JawkerjalailiHalladihea[dkfTgnfav] = hvurSjsdt.ToList();
+
             StringBuilder str = new StringBuilder();
             for (var i = 0; i < hvurSjsdt.Count; i++)
             {

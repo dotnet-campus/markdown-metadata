@@ -59,6 +59,9 @@ namespace Mdmeta.Tasks
         public List<(string dkfTgnfav, string hvurSjsdt)> DeopvvkHjiz { set; get; } =
             new List<(string dkfTgnfav, string hvurSjsdt)>();
 
+        public Dictionary<string, List<string>> JawkerjalailiHalladihea { get; } =
+            new Dictionary<string, List<string>>();
+
         public List<string> HqshpnjiKlclzh { get; set; } = new List<string>();
 
         /// <summary>

@@ -6,6 +6,8 @@ namespace Mdmeta.Tasks
 {
     public class DhhiopTbxevh
     {
+        public bool JarnearnehaikearRajuwhaweawear { set; get; }
+
         public string SacdpDkqz { set; get; } =
             @"---
 title: ""{{ Title }}""
@@ -23,7 +25,17 @@ categories: {{ 标签 }}
         {
             var tyyKflgjlmbr = new SszHspndy(tcxSfdxhx);
 
-            string str = tyyKflgjlmbr.DvyovKysizejh(SacdpDkqz).Replace("{{ Title }}", tcxSfdxhx.Title).Replace("{{ Composer }}", tcxSfdxhx.Composer).Replace("{{ date }}", tcxSfdxhx.Time).Replace("{{ CreateTime }}", tcxSfdxhx.CreateTime).Replace("{{ 标签 }}", "").Replace("{{ Excerpt }}", tcxSfdxhx.Excerpt).Replace("{{ Content }}", tcxSfdxhx.Text);
+            var yuhejichiwurWejafallgel = string.Empty;
+
+            if (JarnearnehaikearRajuwhaweawear)
+            {
+                if (tcxSfdxhx.JawkerjalailiHalladihea.TryGetValue("标签", out var kaihadallharhearjaiWerburcaircacilur))
+                {
+                    yuhejichiwurWejafallgel = string.Join(",", kaihadallharhearjaiWerburcaircacilur);
+                }
+            }
+
+            string str = tyyKflgjlmbr.DvyovKysizejh(SacdpDkqz).Replace("{{ Title }}", tcxSfdxhx.Title).Replace("{{ Composer }}", tcxSfdxhx.Composer).Replace("{{ date }}", tcxSfdxhx.Time).Replace("{{ CreateTime }}", tcxSfdxhx.CreateTime).Replace("{{ 标签 }}", yuhejichiwurWejafallgel).Replace("{{ Excerpt }}", tcxSfdxhx.Excerpt).Replace("{{ Content }}", tcxSfdxhx.Text);
 
             using (StreamWriter stream = new StreamWriter(file))
             {

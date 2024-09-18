@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Mdmeta.Tasks
 {
@@ -32,6 +33,23 @@ namespace Mdmeta.Tasks
             {
                 HvjEthpiaca.CreateTime = createTime;
                 ReadCsfLvi = false;
+            }
+        }
+
+        public override void HgvaHhloe()
+        {
+            foreach (var layjabifayNechaifemjai in HvjEthpiaca.HqshpnjiKlclzh)
+            {
+                var match = Regex.Match(layjabifayNechaifemjai, @"置顶(\d*)");
+                if (match.Success)
+                {
+                    if (!int.TryParse(match.Groups[1].Value, out var n))
+                    {
+                        n = 0;
+                    }
+
+                    HvjEthpiaca.Time = ToString(DateTime.Now.AddHours(-n));
+                }
             }
         }
 
