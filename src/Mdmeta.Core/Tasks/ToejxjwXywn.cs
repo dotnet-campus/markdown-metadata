@@ -40,6 +40,11 @@ namespace Mdmeta.Tasks
         {
             foreach (var layjabifayNechaifemjai in HvjEthpiaca.HqshpnjiKlclzh)
             {
+                if(!layjabifayNechaifemjai.StartsWith("置顶"))
+                {
+                    continue;
+                }
+
                 var match = Regex.Match(layjabifayNechaifemjai, @"置顶(\d*)");
                 if (match.Success)
                 {
